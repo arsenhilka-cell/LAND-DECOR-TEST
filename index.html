@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<!--
+====================================================================
+DECOR HOUSE — ЛЕНДІНГ (готовий файл з плейсхолдерами)
+====================================================================
+Що зробити перед публікацією, Арсене:
+
+1) ФОТО — всі місця з написом "ФОТО:" (елементи класу .ph) — це
+   плейсхолдери. Найпростіше замінити: знайдіть потрібний .ph у
+   HTML і додайте йому inline style="background-image:url('...')"
+   або вставте <img> замість div. Розміри підписані в кожному.
+
+2) КОНТАКТИ — у самому кінці файлу, в <script>, знайдіть об'єкт
+   CONFIG.contacts і впишіть реальний телефон, instagram, viber,
+   адресу шоуруму в Одесі.
+
+3) ЗАЯВКИ → KeyCRM — там само знайдіть CONFIG.webhookUrl і вставте
+   URL вебхука з Make.com. Сценарій у Make: Webhook (Custom Webhook)
+   → KeyCRM (Create Lead). Якщо лишити поле порожнім — форма все
+   одно працюватиме (заявки збережуться у пам'яті браузера як
+   резерв), але реальні заявки нікуди не підуть, поки не вставите
+   URL. НЕ підключайте KeyCRM API напряму з цього файлу — ключ API
+   буде видно у коді сторінки всім відвідувачам, це небезпечно.
+
+4) ВІДГУКИ — у блоці "Відгуки клієнтів" заміните текст-плейсхолдери
+   (вони позначені написом "[вставте текст відгуку]") на реальні
+   цитати, імена та фото/відео.
+
+5) ЦИФРИ — у блоці "Про компанію" зараз стоять тире "—" замість
+   статистики (роки на ринку, кількість клієнтів) — впишіть реальні.
+====================================================================
+-->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Decor House — підберемо стіл та стільці саме під вашу кухню</title>
+<meta name="description" content="Безкоштовна підбірка та візуалізація столу та стільців під вашу кухню. Понад 1000 позицій в наявності, оплата частинами, доставка по всій Україні.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================== TOKENS ============================== */
+:root{
+  --ink:#1c2620;
+  --ink-soft:#283a30;
+  --ink-softer:#34493d;
+  --linen:#f3eee2;
+  --linen-dim:#e9e0cd;
+  --oak:#9c7148;
+  --oak-light:#c9a06c;
+  --brass:#b9924f;
+  --wine:#7c2c32;
+  --wine-dark:#5e2025;
+  --white:#fffaf2;
+  --text-dark:#201a14;
+  --line:rgba(28,38,32,.14);
+  --line-light:rgba(255,250,242,.22);
+  --shadow:0 24px 48px -24px rgba(20,26,22,.55);
+  --radius:3px;
+  --radius-lg:6px;
+  --maxw:1180px;
+  --font-display:'Fraunces', serif;
+  --font-body:'Work Sans', sans-serif;
+  --font-mono:'IBM Plex Mono', monospace;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important;}
+}
+body{
+  margin:0;
+  font-family:var(--font-body);
+  color:var(--text-dark);
+  background:var(--linen);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+h1,h2,h3{font-family:var(--font-display);margin:0;line-height:1.05;font-weight:600;}
+p{margin:0;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+.eyebrow{
+  font-family:var(--font-mono);
+  font-size:12px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--oak);
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:14px;
+}
+.eyebrow::before{content:'';width:18px;height:1px;background:var(--brass);display:inline-block;}
+section{position:relative;padding:96px 0;}
+@media (max-width:768px){ section{padding:64px 0;} }
+
+/* placeholder photo blocks */
+.ph{
+  position:relative;
+  background:
+    repeating-linear-gradient(135deg, rgba(156,113,72,.16) 0 12px, rgba(156,113,72,.06) 12px 24px),
+    var(--linen-dim);
+  border:1px dashed var(--oak-light);
+  border-radius:var(--radius);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:var(--oak);
+  font-family:var(--font-mono);
+  font-size:12px;
+  letter-spacing:.04em;
+  line-height:1.5;
+  padding:14px;
+  min-height:140px;
+}
+.ph span{max-width:80%;}
+.ph.dark{background:repeating-linear-gradient(135deg, rgba(243,238,226,.06) 0 12px, rgba(243,238,226,.02) 12px 24px), var(--ink-soft); border-color:rgba(243,238,226,.3); color:var(--oak-light);}
+
+/* buttons */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:16px 30px;
+  font-family:var(--font-body);
+  font-weight:600;
+  font-size:15px;
+  letter-spacing:.01em;
+  border-radius:var(--radius);
+  transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  white-space:nowrap;
+}
+.btn-primary{
+  background:var(--wine);
+  color:var(--white);
+  box-shadow:0 14px 28px -14px rgba(124,44,50,.65);
+}
+.btn-primary:hover{background:var(--wine-dark); transform:translateY(-2px);}
+.btn-primary:focus-visible{outline:3px solid var(--brass); outline-offset:2px;}
+.btn-ghost{
+  background:transparent;
+  color:var(--ink);
+  border:1px solid var(--ink);
+}
+.btn-ghost:hover{background:var(--ink); color:var(--white);}
+.btn-on-dark{color:var(--linen); border:1px solid var(--line-light);}
+.btn-on-dark:hover{background:var(--linen); color:var(--ink);}
+.btn-block{width:100%;}
+.btn:focus-visible{outline:3px solid var(--brass); outline-offset:2px;}
+
+.cta-row{margin-top:40px; display:flex; gap:16px; flex-wrap:wrap;}
+
+/* ============================== HEADER ============================== */
+header{
+  position:fixed; top:0; left:0; right:0; z-index:60;
+  background:rgba(243,238,226,0);
+  transition:background .25s ease, box-shadow .25s ease, padding .25s ease;
+  padding:22px 0;
+}
+header.scrolled{
+  background:rgba(243,238,226,.96);
+  backdrop-filter:blur(6px);
+  box-shadow:0 12px 24px -18px rgba(20,26,22,.35);
+  padding:14px 0;
+}
+header .wrap{display:flex; align-items:center; justify-content:space-between; gap:18px;}
+.logo{
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:21px;
+  color:var(--linen);
+  letter-spacing:.01em;
+  transition:color .25s ease;
+}
+header.scrolled .logo{color:var(--ink);}
+.logo span{color:var(--oak-light);}
+header.scrolled .logo span{color:var(--wine);}
+.head-contact{
+  display:flex; align-items:center; gap:22px;
+  font-family:var(--font-mono); font-size:13px;
+  color:var(--linen);
+  transition:color .25s ease;
+}
+header.scrolled .head-contact{color:var(--ink-soft);}
+.head-phone{font-weight:600; letter-spacing:.02em;}
+@media (max-width:680px){ .head-phone-label{display:none;} }
+.head-cta{display:none;}
+@media (min-width:560px){ .head-cta{display:inline-flex; padding:11px 20px; font-size:13px;} }
+
+/* ============================== HERO ============================== */
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:flex-end;
+  position:relative;
+  padding-top:160px;
+  padding-bottom:88px;
+  background:var(--ink);
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute; inset:0;
+  background:
+    linear-gradient(180deg, rgba(28,38,32,.35) 0%, rgba(28,38,32,.55) 45%, rgba(20,26,22,.92) 100%),
+    repeating-linear-gradient(135deg, rgba(243,238,226,.05) 0 14px, rgba(243,238,226,.015) 14px 28px),
+    radial-gradient(ellipse at 30% 20%, #3a4f41 0%, #1c2620 70%);
+}
+.hero-bg .ph-label{
+  position:absolute; bottom:24px; right:24px;
+  font-family:var(--font-mono); font-size:11px; color:rgba(243,238,226,.55);
+  border:1px dashed rgba(243,238,226,.35); padding:8px 12px; border-radius:var(--radius);
+  max-width:240px; text-align:right; line-height:1.5;
+}
+.hero-inner{position:relative; z-index:2; max-width:760px;}
+.hero .eyebrow{color:var(--brass);}
+.hero .eyebrow::before{background:var(--brass);}
+.hero h1{
+  color:var(--white);
+  font-size:clamp(34px, 5.4vw, 60px);
+  font-weight:600;
+  margin-bottom:22px;
+}
+.hero h1 .measure{
+  position:relative;
+  white-space:nowrap;
+  font-style:italic;
+  color:var(--oak-light);
+}
+.hero h1 .measure svg{
+  position:absolute; left:0; bottom:-16px; width:100%; height:14px;
+}
+.hero p.sub{
+  color:rgba(243,238,226,.82);
+  font-size:18px;
+  max-width:540px;
+  line-height:1.55;
+  margin-bottom:34px;
+}
+.hero-benefits{
+  display:flex; flex-wrap:wrap; gap:14px 26px;
+  margin-bottom:38px;
+}
+.hero-benefits div{
+  display:flex; align-items:center; gap:9px;
+  font-size:14px; color:var(--linen);
+  font-weight:500;
+}
+.hero-benefits div::before{
+  content:'';
+  width:7px; height:7px;
+  background:var(--brass);
+  border-radius:50%;
+  flex:none;
+}
+
+/* ============================== GALLERY ============================== */
+.section-head{max-width:640px; margin-bottom:48px;}
+.section-head h2{font-size:clamp(26px,3.4vw,38px); margin-bottom:16px;}
+.section-head p{font-size:16px; color:var(--ink-softer); line-height:1.6;}
+
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  grid-auto-rows:170px;
+  gap:14px;
+}
+.gallery-grid .ph:nth-child(1){grid-column:span 2; grid-row:span 2;}
+.gallery-grid .ph:nth-child(4){grid-column:span 2;}
+.gallery-grid .ph:nth-child(7){grid-row:span 2;}
+@media (max-width:880px){
+  .gallery-grid{grid-template-columns:repeat(2,1fr); grid-auto-rows:160px;}
+  .gallery-grid .ph:nth-child(1){grid-column:span 2; grid-row:span 1;}
+}
+
+/* ============================== VISUALIZATION ============================== */
+.viz-section{background:var(--white); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+.viz-flow{
+  display:flex; align-items:center; gap:0;
+  margin:50px 0 8px;
+}
+.viz-step{flex:1; text-align:center;}
+.viz-step .ph{height:200px; margin-bottom:14px;}
+.viz-step p{font-family:var(--font-mono); font-size:12px; color:var(--ink-softer); letter-spacing:.03em;}
+.viz-arrow{flex:none; width:64px; display:flex; align-items:center; justify-content:center; color:var(--brass); padding-bottom:42px;}
+.viz-arrow svg{width:40px; height:18px;}
+@media (max-width:768px){
+  .viz-flow{flex-direction:column;}
+  .viz-arrow{transform:rotate(90deg); padding:8px 0;}
+}
+.viz-text{max-width:560px; margin-top:46px; font-size:16px; line-height:1.7; color:var(--ink-soft);}
+.viz-text strong{color:var(--wine);}
+
+/* ============================== TRUST (dark panel) ============================== */
+.trust{background:var(--ink); color:var(--linen);}
+.trust .section-head h2{color:var(--white);}
+.trust .section-head p{color:rgba(243,238,226,.7);}
+.trust-grid{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+  background:var(--line-light);
+  border:1px solid var(--line-light);
+  margin-top:8px;
+}
+.trust-item{
+  background:var(--ink);
+  padding:30px 26px;
+  display:flex; flex-direction:column; gap:14px;
+}
+.trust-item .num{font-family:var(--font-mono); font-size:12px; color:var(--brass); letter-spacing:.08em;}
+.trust-item p{font-size:15px; line-height:1.5; color:rgba(243,238,226,.88);}
+@media (max-width:880px){ .trust-grid{grid-template-columns:repeat(2,1fr);} }
+@media (max-width:520px){ .trust-grid{grid-template-columns:1fr;} }
+
+/* ============================== WHY US ============================== */
+.why-list{margin-top:8px; border-top:1px solid var(--line);}
+.why-row{
+  display:grid; grid-template-columns:64px 1fr; gap:24px;
+  padding:30px 0; border-bottom:1px solid var(--line);
+  align-items:start;
+}
+.why-row .mark{font-family:var(--font-mono); font-size:13px; color:var(--brass); padding-top:4px;}
+.why-row h3{font-size:19px; font-weight:600; margin-bottom:8px; font-family:var(--font-body);}
+.why-row p{color:var(--ink-softer); line-height:1.6; font-size:15px;}
+@media (max-width:600px){ .why-row{grid-template-columns:40px 1fr;} }
+
+/* ============================== REVIEWS ============================== */
+.reviews{background:var(--linen-dim);}
+.review-track-wrap{position:relative; margin-top:46px;}
+.review-track{display:flex; gap:20px; overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:8px; scrollbar-width:none;}
+.review-track::-webkit-scrollbar{display:none;}
+.review-card{
+  flex:none; width:320px; scroll-snap-align:start;
+  background:var(--white); border:1px solid var(--line); border-radius:var(--radius-lg);
+  padding:26px; display:flex; flex-direction:column; gap:16px;
+}
+.review-card .ph{height:170px;}
+.review-card .quote{font-size:14px; line-height:1.6; color:var(--ink-soft); font-style:italic;}
+.review-card .who{display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:12px; color:var(--oak); border-top:1px solid var(--line); padding-top:12px;}
+.review-nav{display:flex; gap:10px; margin-top:22px;}
+.review-nav button{
+  width:42px; height:42px; border:1px solid var(--ink); border-radius:50%;
+  display:flex; align-items:center; justify-content:center; transition:background .15s, color .15s;
+}
+.review-nav button:hover{background:var(--ink); color:var(--white);}
+
+/* ============================== PROCESS (tape measure) ============================== */
+.process{background:var(--white);}
+.tape{position:relative; margin-top:64px; padding-top:8px;}
+.tape-line{
+  position:absolute; top:21px; left:0; right:0; height:2px;
+  background-image:repeating-linear-gradient(90deg, var(--oak) 0 10px, transparent 10px 18px);
+}
+.tape-steps{display:grid; grid-template-columns:repeat(4,1fr); gap:32px; position:relative;}
+.tape-step{display:flex; flex-direction:column; gap:16px;}
+.tape-node{
+  width:44px; height:44px; border-radius:50%;
+  background:var(--linen); border:2px solid var(--oak);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-mono); font-weight:600; font-size:14px; color:var(--wine);
+  position:relative; z-index:2;
+}
+.tape-step h3{font-size:17px; font-weight:600; font-family:var(--font-body);}
+.tape-step p{font-size:14px; color:var(--ink-softer); line-height:1.55;}
+@media (max-width:880px){
+  .tape-line{display:none;}
+  .tape-steps{grid-template-columns:1fr; gap:0;}
+  .tape-step{display:grid; grid-template-columns:44px 1fr; gap:18px; padding:18px 0; border-bottom:1px solid var(--line);}
+  .tape-step h3, .tape-step p{grid-column:2;}
+}
+
+/* ============================== ABOUT ============================== */
+.about{background:var(--ink); color:var(--linen);}
+.about .wrap{display:grid; grid-template-columns:1.1fr .9fr; gap:64px; align-items:start;}
+.about h2{color:var(--white); font-size:clamp(26px,3.4vw,38px); margin-bottom:20px;}
+.about p.lead{font-size:16px; line-height:1.7; color:rgba(243,238,226,.82); margin-bottom:30px;}
+.about-photos{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+.about-photos .ph:first-child{grid-column:1/3; height:200px;}
+.about-stats{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:36px;}
+.about-stats div{border-top:1px solid var(--line-light); padding-top:16px;}
+.about-stats .big{font-family:var(--font-display); font-size:34px; color:var(--brass); display:block;}
+.about-stats .lbl{font-size:13px; color:rgba(243,238,226,.65); margin-top:6px; display:block;}
+@media (max-width:880px){ .about .wrap{grid-template-columns:1fr;} .about-stats{grid-template-columns:repeat(3,1fr);} }
+
+/* ============================== FINAL FORM SECTION ============================== */
+.final{background:var(--wine); color:var(--white); text-align:center;}
+.final h2{color:var(--white); font-size:clamp(28px,4vw,42px); margin-bottom:18px;}
+.final p{max-width:520px; margin:0 auto 36px; color:rgba(255,250,242,.85); font-size:16px; line-height:1.6;}
+.inline-form{display:flex; gap:12px; max-width:560px; margin:0 auto; flex-wrap:wrap; justify-content:center;}
+.inline-form input{
+  flex:1; min-width:160px;
+  padding:16px 18px; border-radius:var(--radius); border:1px solid rgba(255,250,242,.4);
+  background:rgba(255,250,242,.08); color:var(--white); font-family:var(--font-body); font-size:15px;
+}
+.inline-form input::placeholder{color:rgba(255,250,242,.55);}
+.inline-form input:focus-visible{outline:3px solid var(--brass);}
+.final-note{margin-top:18px; font-size:12px; color:rgba(255,250,242,.6);}
+
+/* ============================== FOOTER ============================== */
+footer{background:var(--ink-soft); color:var(--linen); padding:64px 0 32px;}
+.foot-grid{display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:48px; padding-bottom:40px; border-bottom:1px solid var(--line-light);}
+.foot-logo{font-family:var(--font-display); font-size:22px; margin-bottom:14px; color:var(--white);}
+footer p{font-size:14px; line-height:1.7; color:rgba(243,238,226,.7);}
+footer h4{font-family:var(--font-mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--brass); margin-bottom:16px;}
+.foot-links a{display:block; font-size:14px; padding:6px 0; color:rgba(243,238,226,.85);}
+.foot-links a:hover{color:var(--oak-light);}
+.foot-bottom{display:flex; justify-content:space-between; gap:16px; padding-top:24px; font-size:12px; color:rgba(243,238,226,.5); flex-wrap:wrap;}
+@media (max-width:768px){ .foot-grid{grid-template-columns:1fr; gap:32px;} }
+
+/* ============================== STICKY MOBILE CTA ============================== */
+.sticky-cta{
+  position:fixed; bottom:0; left:0; right:0; z-index:55;
+  background:var(--linen); border-top:1px solid var(--line);
+  padding:12px 16px; box-shadow:0 -14px 30px -18px rgba(20,26,22,.3);
+  display:none;
+}
+@media (max-width:680px){ .sticky-cta{display:block;} body{padding-bottom:74px;} }
+
+/* ============================== MODAL ============================== */
+.modal-overlay{
+  position:fixed; inset:0; background:rgba(20,26,22,.78);
+  display:none; align-items:center; justify-content:center; padding:20px; z-index:100;
+}
+.modal-overlay.open{display:flex;}
+.modal{
+  background:var(--white); border-radius:var(--radius-lg); max-width:440px; width:100%;
+  padding:38px 32px; position:relative; box-shadow:var(--shadow);
+}
+.modal-close{position:absolute; top:18px; right:18px; width:34px; height:34px; display:flex; align-items:center; justify-content:center; border-radius:50%; color:var(--ink-softer);}
+.modal-close:hover{background:var(--linen-dim);}
+.modal h3{font-size:24px; margin-bottom:8px;}
+.modal p.sub{color:var(--ink-softer); font-size:14px; margin-bottom:26px; line-height:1.55;}
+.field{margin-bottom:16px;}
+.field label{display:block; font-family:var(--font-mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-softer); margin-bottom:8px;}
+.field input{
+  width:100%; padding:14px 16px; border:1px solid var(--line); border-radius:var(--radius);
+  font-family:var(--font-body); font-size:15px; background:var(--linen);
+}
+.field input:focus-visible{outline:3px solid var(--brass); outline-offset:1px; border-color:var(--oak);}
+.field .err{color:var(--wine); font-size:12px; margin-top:6px; display:none;}
+.field.invalid input{border-color:var(--wine);}
+.field.invalid .err{display:block;}
+.consent{font-size:12px; color:var(--ink-softer); margin:14px 0 22px; line-height:1.5;}
+.modal-state{display:none;}
+.modal-state.active{display:block;}
+.modal-success{text-align:center;}
+.modal-success .icon{width:56px; height:56px; border-radius:50%; background:var(--linen-dim); display:flex; align-items:center; justify-content:center; margin:0 auto 18px; color:var(--wine);}
+.modal-success h3{margin-bottom:10px;}
+.modal-success p{color:var(--ink-softer); font-size:14px; line-height:1.6;}
+.btn-spinner{display:none; width:16px; height:16px; border:2px solid rgba(255,250,242,.4); border-top-color:#fff; border-radius:50%; animation:spin .7s linear infinite;}
+.is-loading .btn-spinner{display:inline-block;}
+.is-loading .btn-label{opacity:.7;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* reveal-on-scroll */
+.reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+.reveal.visible{opacity:1; transform:none;}
+</style>
+</head>
+<body>
+
+<!-- ============================== HEADER ============================== -->
+<header id="siteHeader">
+  <div class="wrap">
+    <a class="logo" href="#top">Decor<span>House</span></a>
+    <div class="head-contact">
+      <span><span class="head-phone-label">Телефон: </span><span class="head-phone">+38 (0__) ___-__-__</span></span>
+    </div>
+    <button class="btn btn-primary head-cta" data-open-modal data-cta="header">Отримати безкоштовну підбірку</button>
+  </div>
+</header>
+
+<!-- ============================== HERO ============================== -->
+<section class="hero" id="top">
+  <div class="hero-bg">
+    <div class="ph-label">ФОТО: найкращий реалізований інтер'єр клієнта зі столом та стільцями Decor House (повноекранне, портрет/альбом 1920×1080+)</div>
+  </div>
+  <div class="wrap hero-inner reveal">
+    <div class="eyebrow">Безкоштовна підбірка та візуалізація</div>
+    <h1>Підберемо стіл та стільці<br>
+      <span class="measure">саме під вашу кухню
+        <svg viewBox="0 0 300 14" preserveAspectRatio="none"><line x1="0" y1="7" x2="300" y2="7" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 6"/><line x1="0" y1="2" x2="0" y2="12" stroke="currentColor" stroke-width="1.5"/><line x1="300" y1="2" x2="300" y2="12" stroke="currentColor" stroke-width="1.5"/></svg>
+      </span>
+    </h1>
+    <p class="sub">Надішліть фото вашої кухні та отримайте персональну підбірку варіантів і безкоштовну візуалізацію ще до покупки.</p>
+    <div class="hero-benefits">
+      <div>Безкоштовна візуалізація</div>
+      <div>Понад 1000 позицій у наявності</div>
+      <div>Швидка відправка по Україні</div>
+      <div>Оплата частинами без переплат</div>
+    </div>
+    <button class="btn btn-primary" data-open-modal data-cta="hero">Отримати безкоштовну підбірку</button>
+  </div>
+</section>
+
+<!-- ============================== BLOCK 2: ГАЛЕРЕЯ ============================== -->
+<section id="gallery">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Реальні роботи</div>
+      <h2>Подивіться, як наші столи та стільці виглядають у реальних оселях</h2>
+      <p>Різні стилі інтер'єрів, фото після покупки та кадри з відгуків клієнтів з усієї України.</p>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="ph"><span>ФОТО: інтер'єр клієнта, лофт-стиль (велике, 2×2)</span></div>
+      <div class="ph"><span>ФОТО: скандинавський стиль</span></div>
+      <div class="ph"><span>ФОТО: класичний інтер'єр</span></div>
+      <div class="ph"><span>ФОТО: фото з відгуку клієнта (широке)</span></div>
+      <div class="ph"><span>ФОТО: сучасна кухня</span></div>
+      <div class="ph"><span>ФОТО: затишна кухня, дерево</span></div>
+      <div class="ph"><span>ФОТО: фото після покупки (вертикальне)</span></div>
+      <div class="ph"><span>ФОТО: світла кухня</span></div>
+    </div>
+    <div class="cta-row reveal">
+      <button class="btn btn-ghost" data-open-modal data-cta="gallery">Отримати безкоштовну підбірку</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== BLOCK 3: ВІЗУАЛІЗАЦІЯ ============================== -->
+<section class="viz-section" id="visualization">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Перш ніж купувати</div>
+      <h2>Не впевнені, який комплект підійде саме вам?</h2>
+    </div>
+    <div class="viz-text reveal">Щоб ви не помилилися з вибором, ми <strong>безкоштовно покажемо</strong>, як майбутній комплект буде виглядати саме у вашій кухні. Ви просто надсилаєте фото свого приміщення — наш спеціаліст підбирає варіанти та створює візуалізацію. Якщо вагаєтеся між кількома моделями, ми покажемо їх у вашому інтер'єрі ще до покупки.</div>
+    <div class="viz-flow reveal">
+      <div class="viz-step">
+        <div class="ph"><span>ФОТО кухні клієнта (оригінал, "до")</span></div>
+        <p>01 / ФОТО КУХНІ</p>
+      </div>
+      <div class="viz-arrow"><svg viewBox="0 0 40 18"><line x1="0" y1="9" x2="34" y2="9" stroke="currentColor" stroke-width="2"/><polyline points="26,2 34,9 26,16" fill="none" stroke="currentColor" stroke-width="2"/></svg></div>
+      <div class="viz-step">
+        <div class="ph"><span>ВІЗУАЛІЗАЦІЯ комплекту в інтер'єрі клієнта</span></div>
+        <p>02 / ВІЗУАЛІЗАЦІЯ</p>
+      </div>
+      <div class="viz-arrow"><svg viewBox="0 0 40 18"><line x1="0" y1="9" x2="34" y2="9" stroke="currentColor" stroke-width="2"/><polyline points="26,2 34,9 26,16" fill="none" stroke="currentColor" stroke-width="2"/></svg></div>
+      <div class="viz-step">
+        <div class="ph"><span>ГОТОВИЙ результат після встановлення</span></div>
+        <p>03 / РЕЗУЛЬТАТ</p>
+      </div>
+    </div>
+    <div class="cta-row reveal">
+      <button class="btn btn-primary" data-open-modal data-cta="visualization">Замовити безкоштовну візуалізацію</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== BLOCK 4: ДОВІРА ============================== -->
+<section class="trust" id="trust">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Без зайвих хвилювань</div>
+      <h2>Купувати меблі онлайн може бути легко та безпечно</h2>
+    </div>
+    <div class="trust-grid reveal">
+      <div class="trust-item"><span class="num">01</span><p>Безкоштовна візуалізація до покупки</p></div>
+      <div class="trust-item"><span class="num">02</span><p>Фото та відео товару перед відправкою</p></div>
+      <div class="trust-item"><span class="num">03</span><p>Накладений платіж</p></div>
+      <div class="trust-item"><span class="num">04</span><p>Страхування кожної посилки</p></div>
+      <div class="trust-item"><span class="num">05</span><p>Реальні відгуки клієнтів</p></div>
+      <div class="trust-item"><span class="num">06</span><p>Детальна відеоінструкція зі збирання</p></div>
+      <div class="trust-item"><span class="num">07</span><p>Підтримка менеджера на всіх етапах</p></div>
+      <div class="trust-item"><span class="num">08</span><p>Гарантія на продукцію</p></div>
+    </div>
+    <div class="cta-row reveal">
+      <button class="btn btn-on-dark" data-open-modal data-cta="trust">Отримати консультацію</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== BLOCK 5: ЧОМУ ОБИРАЮТЬ ============================== -->
+<section id="why">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Decor House</div>
+      <h2>Чому тисячі клієнтів обирають саме нас</h2>
+    </div>
+    <div class="why-list reveal">
+      <div class="why-row">
+        <div class="mark">01</div>
+        <div><h3>Понад 1000 позицій у наявності</h3><p>Вам не потрібно чекати виготовлення чи поставки кілька місяців.</p></div>
+      </div>
+      <div class="why-row">
+        <div class="mark">02</div>
+        <div><h3>Швидка відправка по всій Україні</h3><p>Більшість замовлень відправляються максимально швидко.</p></div>
+      </div>
+      <div class="why-row">
+        <div class="mark">03</div>
+        <div><h3>Оплата частинами без переплат</h3><p>Monobank, ПриватБанк, А-Банк.</p></div>
+      </div>
+      <div class="why-row">
+        <div class="mark">04</div>
+        <div><h3>Допомога з підбором</h3><p>Підбираємо стіл та стільці під ваш інтер'єр, розміри та бюджет.</p></div>
+      </div>
+      <div class="why-row">
+        <div class="mark">05</div>
+        <div><h3>Детальна відеоінструкція</h3><p>Показуємо весь процес складання покроково.</p></div>
+      </div>
+      <div class="why-row">
+        <div class="mark">06</div>
+        <div><h3>Відповідальність за доставку</h3><p>Усі посилки страхуються. У разі пошкодження допомагаємо вирішити ситуацію та супроводжуємо клієнта до її повного вирішення.</p></div>
+      </div>
+      <div class="why-row">
+        <div class="mark">07</div>
+        <div><h3>Гарантія на продукцію та підтримка після покупки</h3><p>Ми залишаємось на зв'язку навіть після того, як комплект уже стоїть на вашій кухні.</p></div>
+      </div>
+    </div>
+    <div class="cta-row reveal">
+      <button class="btn btn-primary" data-open-modal data-cta="why">Отримати безкоштовну підбірку</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== BLOCK 6: ВІДГУКИ ============================== -->
+<section class="reviews" id="reviews">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Соціальний доказ</div>
+      <h2>Що говорять наші клієнти</h2>
+      <p>Відеовідгуки, фото відгуки, скріншоти переписок та комплекти у квартирах клієнтів.</p>
+    </div>
+    <div class="review-track-wrap reveal">
+      <div class="review-track" id="reviewTrack">
+        <div class="review-card">
+          <div class="ph"><span>ВІДЕО/ФОТО відгук клієнта №1</span></div>
+          <p class="quote">«[вставте текст відгуку — враження клієнта від підбору, доставки, результату]»</p>
+          <div class="who"><span>Ім'я клієнта</span><span>Місто</span></div>
+        </div>
+        <div class="review-card">
+          <div class="ph"><span>ВІДЕО/ФОТО відгук клієнта №2</span></div>
+          <p class="quote">«[вставте текст відгуку]»</p>
+          <div class="who"><span>Ім'я клієнта</span><span>Місто</span></div>
+        </div>
+        <div class="review-card">
+          <div class="ph"><span>Скріншот переписки з клієнтом</span></div>
+          <p class="quote">«[вставте текст відгуку]»</p>
+          <div class="who"><span>Ім'я клієнта</span><span>Місто</span></div>
+        </div>
+        <div class="review-card">
+          <div class="ph"><span>ФОТО комплекту в квартирі клієнта</span></div>
+          <p class="quote">«[вставте текст відгуку]»</p>
+          <div class="who"><span>Ім'я клієнта</span><span>Місто</span></div>
+        </div>
+        <div class="review-card">
+          <div class="ph"><span>ВІДЕО відгук клієнта №3</span></div>
+          <p class="quote">«[вставте текст відгуку]»</p>
+          <div class="who"><span>Ім'я клієнта</span><span>Місто</span></div>
+        </div>
+      </div>
+      <div class="review-nav">
+        <button id="revPrev" aria-label="Попередній відгук"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M10 2 4 8l6 6" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
+        <button id="revNext" aria-label="Наступний відгук"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M6 2l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
+      </div>
+    </div>
+    <div class="cta-row reveal">
+      <button class="btn btn-ghost" data-open-modal data-cta="reviews">Отримати підбірку</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== BLOCK 7: ЯК МИ ПРАЦЮЄМО ============================== -->
+<section class="process" id="process">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Процес</div>
+      <h2>Всього 4 простих кроки до вашого нового комплекту</h2>
+    </div>
+    <div class="tape reveal">
+      <div class="tape-line"></div>
+      <div class="tape-steps">
+        <div class="tape-step">
+          <div class="tape-node">01</div>
+          <h3>З'ясовуємо побажання</h3>
+          <p>Дізнаємось ваш стиль, бюджет та розміри кухні.</p>
+        </div>
+        <div class="tape-step">
+          <div class="tape-node">02</div>
+          <h3>Готуємо підбірку</h3>
+          <p>Персональні варіанти столу та стільців під ваш запит.</p>
+        </div>
+        <div class="tape-step">
+          <div class="tape-node">03</div>
+          <h3>Робимо візуалізацію</h3>
+          <p>За потреби — безкоштовно і швидко, потрібне лише фото кухні.</p>
+        </div>
+        <div class="tape-step">
+          <div class="tape-node">04</div>
+          <h3>Оформлюємо й відправляємо</h3>
+          <p>Доставка по всій Україні.</p>
+        </div>
+      </div>
+    </div>
+    <div class="cta-row reveal">
+      <button class="btn btn-primary" data-open-modal data-cta="process">Залишити заявку</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== BLOCK 8: ПРО КОМПАНІЮ ============================== -->
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Decor House</div>
+      <h2>Меблі для кухні, які обирають по всій Україні</h2>
+      <p class="lead">Decor House — це команда, що допомагає підібрати стіл та стільці, які підійдуть саме вашій кухні: за стилем, розміром і бюджетом. Працюємо по всій Україні, маємо власний шоурум в Одесі та понад 1000 позицій у наявності.</p>
+      <div class="about-stats">
+        <div><span class="big">—</span><span class="lbl">років на ринку (вкажіть цифру)</span></div>
+        <div><span class="big">—</span><span class="lbl">задоволених клієнтів (вкажіть цифру)</span></div>
+        <div><span class="big">1000+</span><span class="lbl">позицій у наявності</span></div>
+      </div>
+      <div class="cta-row">
+        <button class="btn btn-on-dark" data-open-modal data-cta="about">Отримати консультацію</button>
+      </div>
+    </div>
+    <div class="about-photos reveal">
+      <div class="ph dark"><span>ФОТО: шоурум Decor House в Одесі</span></div>
+      <div class="ph dark"><span>ФОТО: склад</span></div>
+      <div class="ph dark"><span>ФОТО: команда</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== BLOCK 9: ФІНАЛЬНА ФОРМА ============================== -->
+<section class="final" id="final">
+  <div class="wrap">
+    <h2 class="reveal">Отримайте безкоштовну підбірку для вашої кухні вже сьогодні</h2>
+    <p class="reveal">Залиште заявку — і отримайте допомогу з вибором столу та стільців саме під ваш інтер'єр.</p>
+    <form class="inline-form reveal" id="finalForm" novalidate>
+      <input type="text" name="name" placeholder="Ваше ім'я" required aria-label="Ім'я">
+      <input type="tel" name="phone" placeholder="+380 __ ___ __ __" required aria-label="Телефон">
+      <button type="submit" class="btn btn-on-dark">
+        <span class="btn-label">Отримати підбірку</span>
+        <span class="btn-spinner"></span>
+      </button>
+    </form>
+    <p class="final-note">Натискаючи кнопку, ви погоджуєтесь на обробку персональних даних.</p>
+  </div>
+</section>
+
+<!-- ============================== FOOTER ============================== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logo">Decor House</div>
+        <p>Меблі для кухні: столи та стільці з безкоштовною підбіркою та візуалізацією під ваш інтер'єр.</p>
+      </div>
+      <div>
+        <h4>Контакти</h4>
+        <p>Телефон: +38 (0__) ___-__-__<br>
+        Instagram: @ваш_акаунт<br>
+        Viber/Telegram: вкажіть лінк<br>
+        Шоурум: Одеса, вкажіть адресу</p>
+      </div>
+      <div class="foot-links">
+        <h4>Сторінки</h4>
+        <a href="#gallery">Наші роботи</a>
+        <a href="#reviews">Відгуки</a>
+        <a href="#about">Про компанію</a>
+        <a href="#final">Залишити заявку</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© Decor House. Всі права захищені.</span>
+      <span>Одеса, Україна</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================== STICKY MOBILE CTA ============================== -->
+<div class="sticky-cta">
+  <button class="btn btn-primary btn-block" data-open-modal data-cta="sticky_mobile">Отримати безкоштовну підбірку</button>
+</div>
+
+<!-- ============================== MODAL ============================== -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" aria-label="Закрити">
+      <svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 2l12 12M14 2 2 14" stroke="currentColor" stroke-width="2"/></svg>
+    </button>
+
+    <div class="modal-state active" id="modalFormState">
+      <h3 id="modalTitle">Залишити заявку на підбірку</h3>
+      <p class="sub">Залиште ім'я та телефон — менеджер зв'яжеться з вами протягом 15 хвилин і допоможе підібрати стіл та стільці під вашу кухню.</p>
+      <form id="modalForm" novalidate>
+        <div class="field" id="nameField">
+          <label for="modalName">Ім'я</label>
+          <input type="text" id="modalName" name="name" autocomplete="given-name" required>
+          <div class="err">Вкажіть, будь ласка, ваше ім'я.</div>
+        </div>
+        <div class="field" id="phoneField">
+          <label for="modalPhone">Телефон</label>
+          <input type="tel" id="modalPhone" name="phone" autocomplete="tel" placeholder="+380 __ ___ __ __" required>
+          <div class="err">Перевірте номер телефону — має бути 9 цифр після +380.</div>
+        </div>
+        <p class="consent">Натискаючи кнопку, ви даєте згоду на обробку персональних даних відповідно до політики конфіденційності Decor House.</p>
+        <button type="submit" class="btn btn-primary btn-block">
+          <span class="btn-label">Отримати безкоштовну підбірку</span>
+          <span class="btn-spinner"></span>
+        </button>
+      </form>
+    </div>
+
+    <div class="modal-state modal-success" id="modalSuccessState">
+      <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M4 12l6 6L20 6" fill="none" stroke="currentColor" stroke-width="2.5"/></svg></div>
+      <h3>Заявку прийнято!</h3>
+      <p>Дякуємо! Наш менеджер зв'яжеться з вами найближчим часом, щоб допомогти підібрати стіл та стільці саме під вашу кухню.</p>
+    </div>
+
+    <div class="modal-state modal-success" id="modalErrorState">
+      <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M12 2 2 20h20L12 2z" fill="none" stroke="currentColor" stroke-width="2"/><line x1="12" y1="9" x2="12" y2="13" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="16" r="1" fill="currentColor"/></svg></div>
+      <h3>Заявку збережено</h3>
+      <p>Не вдалося надіслати заявку автоматично, але ми зберегли ваші дані. Будь ласка, зателефонуйте нам напряму: <strong id="errorPhone">+38 (0__) ___-__-__</strong></p>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ====================================================================
+   НАЛАШТУВАННЯ — заповніть перед публікацією
+   ==================================================================== */
+const CONFIG = {
+  // Вставте сюди URL вебхука з Make.com (сценарій Webhook → KeyCRM).
+  // Поки тут порожньо — заявки лише зберігаються локально (в браузері)
+  // як резерв і НЕ потрапляють у KeyCRM.
+  webhookUrl: "",
+
+  contacts: {
+    phone: "+38 (0__) ___-__-__",
+    instagram: "https://instagram.com/your_account",
+    viber: "viber://chat?number=%2B380000000000",
+    telegram: "https://t.me/your_account"
+  }
+};
+
+/* ====================================================================
+   HEADER SCROLL STATE
+   ==================================================================== */
+const header = document.getElementById('siteHeader');
+function onScroll(){
+  if(window.scrollY > 80){ header.classList.add('scrolled'); }
+  else{ header.classList.remove('scrolled'); }
+}
+window.addEventListener('scroll', onScroll, {passive:true});
+onScroll();
+
+/* ====================================================================
+   REVEAL ON SCROLL
+   ==================================================================== */
+const revealEls = document.querySelectorAll('.reveal');
+if('IntersectionObserver' in window){
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, {threshold:.12});
+  revealEls.forEach(el=>io.observe(el));
+} else {
+  revealEls.forEach(el=>el.classList.add('visible'));
+}
+
+/* ====================================================================
+   PHONE MASK  (+380 __ ___ __ __)
+   ==================================================================== */
+function formatPhone(raw){
+  let digits = raw.replace(/\D/g,'');
+  if(digits.startsWith('380')) digits = digits.slice(3);
+  else if(digits.startsWith('0')) digits = digits.slice(1);
+  digits = digits.slice(0,9);
+  let out = '+380';
+  if(digits.length>0) out += ' ' + digits.slice(0,2);
+  if(digits.length>2) out += ' ' + digits.slice(2,5);
+  if(digits.length>5) out += ' ' + digits.slice(5,7);
+  if(digits.length>7) out += ' ' + digits.slice(7,9);
+  return out;
+}
+function attachPhoneMask(input){
+  input.addEventListener('focus', ()=>{ if(!input.value) input.value = '+380 '; });
+  input.addEventListener('input', ()=>{
+    const pos = input.value.length;
+    input.value = formatPhone(input.value);
+  });
+}
+document.querySelectorAll('input[type="tel"]').forEach(attachPhoneMask);
+
+function isValidPhone(value){
+  const digits = value.replace(/\D/g,'');
+  // 380 + 9 digits = 12
+  return digits.length === 12 && digits.startsWith('380');
+}
+
+/* ====================================================================
+   MODAL
+   ==================================================================== */
+const overlay = document.getElementById('modalOverlay');
+const formState = document.getElementById('modalFormState');
+const successState = document.getElementById('modalSuccessState');
+const errorState = document.getElementById('modalErrorState');
+const modalForm = document.getElementById('modalForm');
+const modalName = document.getElementById('modalName');
+const modalPhone = document.getElementById('modalPhone');
+let lastFocused = null;
+let currentCtaSource = 'unknown';
+
+document.getElementById('errorPhone').textContent = CONFIG.contacts.phone;
+
+function showState(state){
+  [formState, successState, errorState].forEach(s=>s.classList.remove('active'));
+  state.classList.add('active');
+}
+
+function openModal(ctaSource){
+  currentCtaSource = ctaSource || 'unknown';
+  lastFocused = document.activeElement;
+  showState(formState);
+  modalForm.reset();
+  document.getElementById('nameField').classList.remove('invalid');
+  document.getElementById('phoneField').classList.remove('invalid');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(()=>modalName.focus(), 50);
+}
+function closeModal(){
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+  if(lastFocused) lastFocused.focus();
+}
+document.querySelectorAll('[data-open-modal]').forEach(btn=>{
+  btn.addEventListener('click', ()=>openModal(btn.dataset.cta));
+});
+document.getElementById('modalClose').addEventListener('click', closeModal);
+overlay.addEventListener('click', (e)=>{ if(e.target === overlay) closeModal(); });
+document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && overlay.classList.contains('open')) closeModal(); });
+
+/* ====================================================================
+   SUBMIT (Modal + Final inline form) → Make.com webhook → KeyCRM
+   ==================================================================== */
+function getUtm(){
+  const p = new URLSearchParams(window.location.search);
+  return {
+    utm_source: p.get('utm_source') || '',
+    utm_medium: p.get('utm_medium') || '',
+    utm_campaign: p.get('utm_campaign') || ''
+  };
+}
+function saveBackup(payload){
+  try{
+    const key = 'dh_leads_backup';
+    const list = JSON.parse(localStorage.getItem(key) || '[]');
+    list.push(payload);
+    localStorage.setItem(key, JSON.stringify(list));
+  }catch(e){ /* localStorage unavailable — ignore */ }
+}
+async function submitLead(payload, btn){
+  btn.classList.add('is-loading');
+  saveBackup(payload); // завжди зберігаємо локальний резерв
+
+  if(!CONFIG.webhookUrl){
+    console.warn('[Decor House] CONFIG.webhookUrl не заповнено — заявка збережена лише локально:', payload);
+    btn.classList.remove('is-loading');
+    return {ok:false, reason:'no_webhook'};
+  }
+  try{
+    const res = await fetch(CONFIG.webhookUrl, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    });
+    btn.classList.remove('is-loading');
+    if(!res.ok) throw new Error('Webhook відповів помилкою: ' + res.status);
+    return {ok:true};
+  }catch(err){
+    console.error('[Decor House] Помилка надсилання заявки:', err);
+    btn.classList.remove('is-loading');
+    return {ok:false, reason:'network'};
+  }
+}
+
+modalForm.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const nameVal = modalName.value.trim();
+  const phoneVal = modalPhone.value.trim();
+  let valid = true;
+  if(nameVal.length < 2){ document.getElementById('nameField').classList.add('invalid'); valid = false; }
+  else{ document.getElementById('nameField').classList.remove('invalid'); }
+  if(!isValidPhone(phoneVal)){ document.getElementById('phoneField').classList.add('invalid'); valid = false; }
+  else{ document.getElementById('phoneField').classList.remove('invalid'); }
+  if(!valid) return;
+
+  const submitBtn = modalForm.querySelector('button[type="submit"]');
+  const payload = {
+    name: nameVal,
+    phone: phoneVal,
+    cta_source: currentCtaSource,
+    form_type: 'модальна форма',
+    page_url: window.location.href,
+    timestamp: new Date().toISOString(),
+    ...getUtm()
+  };
+  const result = await submitLead(payload, submitBtn);
+  showState(result.ok || result.reason === 'no_webhook' ? successState : errorState);
+});
+
+const finalForm = document.getElementById('finalForm');
+finalForm.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const nameInput = finalForm.querySelector('input[name="name"]');
+  const phoneInput = finalForm.querySelector('input[name="phone"]');
+  if(nameInput.value.trim().length < 2 || !isValidPhone(phoneInput.value)){
+    openModal('final_form_invalid_fallback');
+    return;
+  }
+  const submitBtn = finalForm.querySelector('button[type="submit"]');
+  const payload = {
+    name: nameInput.value.trim(),
+    phone: phoneInput.value.trim(),
+    cta_source: 'final_inline_form',
+    form_type: 'фінальна форма на сторінці',
+    page_url: window.location.href,
+    timestamp: new Date().toISOString(),
+    ...getUtm()
+  };
+  const result = await submitLead(payload, submitBtn);
+  openModal('final_inline_form');
+  showState(result.ok || result.reason === 'no_webhook' ? successState : errorState);
+});
+
+/* ====================================================================
+   REVIEW CAROUSEL
+   ==================================================================== */
+const track = document.getElementById('reviewTrack');
+const cardWidth = 340; // ширина картки + gap
+document.getElementById('revPrev').addEventListener('click', ()=> track.scrollBy({left:-cardWidth, behavior:'smooth'}));
+document.getElementById('revNext').addEventListener('click', ()=> track.scrollBy({left: cardWidth, behavior:'smooth'}));
+</script>
+</body>
+</html>
