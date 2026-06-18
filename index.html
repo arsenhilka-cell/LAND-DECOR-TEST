@@ -293,12 +293,12 @@ header .wrap{display:flex; align-items:center; justify-content:space-between; ga
 .viz-section{background:var(--paper); border-top:1px solid var(--hairline); border-bottom:1px solid var(--hairline);}
 .viz-flow{display:flex; align-items:center; gap:0; margin:50px 0 8px;}
 .viz-step{flex:1; text-align:center;}
-.viz-step .ph{aspect-ratio:4/3; height:auto; margin-bottom:14px;}
+.viz-step .ph{aspect-ratio:4/5; height:auto; margin-bottom:14px;}
 .viz-step p{font-family:var(--font-mono); font-size:12px; color:var(--fg-soft); letter-spacing:.03em;}
 .viz-arrow{flex:none; width:64px; display:flex; align-items:center; justify-content:center; color:var(--gold); padding-bottom:42px;}
 .viz-arrow svg{width:40px; height:18px;}
 @media (max-width:768px){
-  .viz-flow{flex-direction:column;}
+  .viz-flow{flex-direction:column; align-items:stretch;}
   .viz-arrow{transform:rotate(90deg); padding:8px 0;}
 }
 .viz-text{max-width:560px; margin-top:46px; font-size:16px; line-height:1.7; color:var(--fg-soft);}
@@ -354,7 +354,7 @@ header .wrap{display:flex; align-items:center; justify-content:space-between; ga
   transition:transform .3s var(--ease-snap), box-shadow .3s var(--ease-snap);
 }
 .review-card:hover{transform:translateY(-4px); box-shadow:var(--shadow);}
-.review-card .ph{aspect-ratio:4/3; height:auto;}
+.review-card .ph{aspect-ratio:4/5; height:auto;}
 .review-card .quote{font-size:14px; line-height:1.6; color:rgba(16,13,10,.78); font-style:italic;}
 .review-card .who{display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:12px; color:var(--gold-deep); border-top:1px solid var(--hairline); padding-top:12px;}
 .review-nav{display:flex; gap:10px; margin-top:22px;}
@@ -643,27 +643,27 @@ footer a{transition:color .2s;}
         <div class="review-card">
           <div class="ph" data-photo="review-1"><span>ВІДЕО/ФОТО відгук клієнта №1</span></div>
           <p class="quote">«Чесно кажучи, найбільше переживали саме за збірку 😅 Здавалося, що це буде довго, складно і доведеться шукати майстра. Але разом із замовленням нам надіслали детальну відеоінструкцію, де все показано настільки зрозуміло, що чоловік самостійно зібрав комплект без жодних труднощів.<br><br>Це був один із тих приємних моментів, коли реальність перевершила очікування 🤍 Дякую команді Decor House не лише за красиві меблі, а й за турботу про клієнтів на кожному етапі. Саме з таких деталей складається справжній сервіс»</p>
-          <div class="who"><span>Марина</span><span>Одеса</span></div>
+          <div class="who"><span>Ім'я клієнта</span><span>Місто</span></div>
         </div>
         <div class="review-card">
           <div class="ph" data-photo="review-2"><span>ВІДЕО/ФОТО відгук клієнта №2</span></div>
           <p class="quote">«Довго шукали стіл, який буде красивим, практичним і підійде під наш інтер'єр. Дякую команді Decor House за терпіння та професійну допомогу. Нам запропонували кілька варіантів, все детально пояснили і допомогли зробити правильний вибір.<br><br>Тепер розумію, що інколи хороший сервіс цінніший за саму покупку»</p>
-          <div class="who"><span>Олег</span><span>Київ</span></div>
+          <div class="who"><span>Ім'я клієнта</span><span>Місто</span></div>
         </div>
         <div class="review-card">
           <div class="ph" data-photo="review-3"><span>Скріншот переписки з клієнтом</span></div>
           <p class="quote">«Дуже рідко залишаю відгуки, але тут справді захотілося подякувати ❤️ Від першого повідомлення до отримання замовлення все було легко, зрозуміло і без зайвого хвилювання. Комплект приїхав саме таким, як я собі уявляла.<br><br>Відчувається, що тут працюють люди, які люблять свою справу і щиро піклуються про клієнтів 🏡✨»</p>
-          <div class="who"><span>Олеся</span><span>Вінниця</span></div>
+          <div class="who"><span>Ім'я клієнта</span><span>Місто</span></div>
         </div>
         <div class="review-card">
           <div class="ph" data-photo="review-4"><span>ФОТО комплекту в квартирі клієнта</span></div>
           <p class="quote">«Отримали свій комплект і я досі не можу натішитися. Найбільше хвилювалася, чи буде він виглядати так само красиво, як на фото. Але в реальності він виявився навіть кращим. Кухня одразу стала набагато затишнішою, а кожен гість звертає увагу на наш новий стіл та стільці.<br><br>Щиро дякую за допомогу з вибором»</p>
-          <div class="who"><span>Ольга</span><span>Львів</span></div>
+          <div class="who"><span>Ім'я клієнта</span><span>Місто</span></div>
         </div>
         <div class="review-card">
           <div class="ph" data-photo="review-5"><span>ВІДЕО відгук клієнта №3</span></div>
           <p class="quote">«Сьогодні забрали свій комплект з пошти і я просто в захваті. Дуже дякую вам за допомогу з вибором. Мене довго мучили сумніви: круглий чи овальний стіл обрати. Але завдяки вашій візуалізації та підбору все вийшло просто ідеально.<br><br>У реальності комплект виглядає навіть краще, ніж я собі уявляла. Окремо хочу подякувати за сервіс і підхід до клієнта. Такої уваги до деталей і бажання дійсно допомогти я ще ніде не зустрічала. Щиро рекомендую»</p>
-          <div class="who"><span>Діана</span><span>Одеса</span></div>
+          <div class="who"><span>Ім'я клієнта</span><span>Місто</span></div>
         </div>
       </div>
       <div class="review-nav">
