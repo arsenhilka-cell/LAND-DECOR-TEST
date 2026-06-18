@@ -757,7 +757,7 @@ footer a{transition:color .2s;}
 
 <!-- ============================== STICKY MOBILE CTA ============================== -->
 <div class="sticky-cta">
-  <button class="btn btn-primary btn-block" data-open-modal data-cta="sticky_mobile">Отримати безкоштовну підбірку</button>
+  <button class="btn btn-primary btn-block" data-open-modal data-cta="sticky-mobile">Отримати безкоштовну підбірку</button>
 </div>
 
 <!-- ============================== MODAL ============================== -->
@@ -1097,7 +1097,7 @@ function saveBackup(payload){
 }
 function formatTelegramMessage(payload){
   const lines = [
-    '🪑 *Нова заявка з лендінгу Decor House*',
+    '🪑 Нова заявка з лендінгу Decor House',
     '',
     `Ім'я: ${payload.name}`,
     `Телефон: ${payload.phone}`,
@@ -1109,10 +1109,13 @@ function formatTelegramMessage(payload){
 }
 async function sendToTelegram(botToken, chatId, payload){
   const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+  // Без parse_mode: звичайний текст ніколи не "зламається" через
+  // підкреслення/зірочки/скобки в імені клієнта, UTM-метках тощо —
+  // це найнадійніший варіант, щоб жодна заявка не загубилась.
   const res = await fetch(url, {
     method:'POST',
     headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({ chat_id: chatId, text: formatTelegramMessage(payload), parse_mode: 'Markdown' })
+    body: JSON.stringify({ chat_id: chatId, text: formatTelegramMessage(payload) })
   });
   const data = await res.json();
   if(!data.ok) throw new Error('Telegram відповів помилкою: ' + (data.description || res.status));
@@ -1175,17 +1178,17 @@ finalForm.addEventListener('submit', async (e)=>{
   const nameInput = finalForm.querySelector('input[name="name"]');
   const phoneInput = finalForm.querySelector('input[name="phone"]');
   if(nameInput.value.trim().length < 2 || !isValidPhone(phoneInput.value)){
-    openModal('final_form_invalid_fallback');
+    openModal('final-form-invalid');
     return;
   }
   const submitBtn = finalForm.querySelector('button[type="submit"]');
   const payload = {
-    name: nameInput.value.trim(), phone: phoneInput.value.trim(), cta_source: 'final_inline_form',
+    name: nameInput.value.trim(), phone: phoneInput.value.trim(), cta_source: 'final-inline-form',
     form_type: 'фінальна форма на сторінці', page_url: window.location.href,
     timestamp: new Date().toISOString(), ...getUtm()
   };
   const result = await submitLead(payload, submitBtn);
-  openModal('final_inline_form');
+  openModal('final-inline-form');
   showState(result.ok || result.reason === 'no_telegram' ? successState : errorState);
 });
 
