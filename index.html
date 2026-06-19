@@ -39,6 +39,24 @@ DECOR HOUSE — ЛЕНДІНГ (чорно-жовто-золотий бренд�
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+<!-- Meta (Facebook) Pixel — базовий код -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1448858230344730');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1448858230344730&ev=PageView&noscript=1"
+/></noscript>
+
 <style>
 /* ============================== TOKENS ============================== */
 :root{
@@ -1095,6 +1113,14 @@ async function submitLead(payload, btn){
   }
   return {ok:true};
 }
+function trackLead(payload){
+  // Подія Lead для Facebook Pixel — рахуємо лідом саме момент,
+  // коли заявка вважається успішною (дійшла в Telegram або хоча б
+  // збереглась локально), а не просто клік по кнопці.
+  if(typeof fbq === 'function'){
+    fbq('track', 'Lead', { content_name: payload.cta_source });
+  }
+}
 
 modalForm.addEventListener('submit', async (e)=>{
   e.preventDefault();
@@ -1114,7 +1140,9 @@ modalForm.addEventListener('submit', async (e)=>{
     timestamp: new Date().toISOString(), ...getUtm()
   };
   const result = await submitLead(payload, submitBtn);
-  showState(result.ok || result.reason === 'no_telegram' ? successState : errorState);
+  const success = result.ok || result.reason === 'no_telegram';
+  if(success) trackLead(payload);
+  showState(success ? successState : errorState);
 });
 
 const finalForm = document.getElementById('finalForm');
@@ -1133,8 +1161,10 @@ finalForm.addEventListener('submit', async (e)=>{
     timestamp: new Date().toISOString(), ...getUtm()
   };
   const result = await submitLead(payload, submitBtn);
+  const success = result.ok || result.reason === 'no_telegram';
+  if(success) trackLead(payload);
   openModal('final-inline-form');
-  showState(result.ok || result.reason === 'no_telegram' ? successState : errorState);
+  showState(success ? successState : errorState);
 });
 
 /* ====================================================================
