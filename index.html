@@ -174,13 +174,16 @@ header.scrolled{
 }
 header .wrap{display:flex; align-items:center; justify-content:space-between; gap:18px;}
 .logo{
-  font-family:var(--font-display);
-  font-weight:700;
-  font-size:21px;
-  color:var(--cream);
-  letter-spacing:.01em;
+  font-family:var(--font-body);
+  font-weight:600;
+  font-size:13px;
+  line-height:1.4;
+  color:rgba(240,230,207,.92);
+  letter-spacing:.005em;
+  max-width:250px;
 }
-.logo span{color:var(--yellow); letter-spacing:.06em; text-transform:uppercase; font-size:.84em;}
+.logo .accent{color:var(--yellow); font-weight:700;}
+@media (max-width:560px){ .logo{font-size:11.5px; max-width:160px;} }
 .head-contact{
   display:flex; align-items:center; gap:22px;
   font-family:var(--font-mono); font-size:13px;
@@ -218,8 +221,7 @@ header .wrap{display:flex; align-items:center; justify-content:space-between; ga
 .hero .eyebrow{color:var(--yellow);}
 .hero .eyebrow::before{background:var(--yellow);}
 .hero h1{color:var(--paper); font-size:clamp(30px, 4.4vw, 50px); font-weight:600; margin-bottom:22px;}
-.hero h1 .measure{position:relative; white-space:nowrap; font-style:italic; color:var(--yellow);}
-.hero h1 .measure svg{position:absolute; left:0; bottom:-16px; width:100%; height:14px;}
+.hero h1 .measure{position:relative; font-style:italic; color:var(--yellow); padding-bottom:7px; border-bottom:2px dashed var(--yellow);}
 .hero p.sub{color:rgba(240,230,207,.86); font-size:17px; line-height:1.55; margin-bottom:34px; max-width:560px;}
 .hero-benefits{display:flex; flex-wrap:wrap; gap:14px 26px; margin-bottom:38px;}
 .hero-benefits div{display:flex; align-items:center; gap:9px; font-size:14px; color:var(--cream); font-weight:500;}
@@ -429,7 +431,7 @@ footer a{transition:color .2s;}
 <!-- ============================== HEADER ============================== -->
 <header id="siteHeader">
   <div class="wrap">
-    <a class="logo" href="#top">Decor<span>House</span></a>
+    <a class="logo" href="#top">Швидкий підбір <span class="accent">кухонного столу та стільців</span> для вашої кухні</a>
     <div class="head-contact">
       <span><span class="head-phone-label">Телефон: </span><span class="head-phone" data-contact="phone">+38 (068) 130-75-55</span></span>
     </div>
@@ -443,18 +445,15 @@ footer a{transition:color .2s;}
     <div class="ph-label">ФОТО: найкращий реалізований інтер'єр клієнта зі столом та стільцями Decor House (повноекранне, портрет/альбом 1920×1080+)</div>
   </div>
   <div class="wrap hero-inner" id="heroInner">
-    <div class="eyebrow">Decor House — меблевий шоурум в Одесі</div>
     <h1>Найбільший шоурум<br>
-      <span class="measure">столів та стільців
-        <svg viewBox="0 0 300 14" preserveAspectRatio="none"><line x1="0" y1="7" x2="300" y2="7" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 6"/><line x1="0" y1="2" x2="0" y2="12" stroke="currentColor" stroke-width="1.5"/><line x1="300" y1="2" x2="300" y2="12" stroke="currentColor" stroke-width="1.5"/></svg>
-      </span>
+      <span class="measure">столів і стільців в Україні</span>
     </h1>
-    <p class="sub">Понад 1000 моделей у наявності. Залишайте заявку — допоможемо підібрати та оформити замовлення, а візуалізацію вашої кухні зробимо безкоштовно як бонус.</p>
+    <p class="sub">Понад 1000 моделей у наявності. Залишайте заявку — допоможемо підібрати та оформити замовлення, а візуалізацію вашої кухні зробимо безкоштовно.</p>
     <div class="hero-benefits">
       <div>Понад 1000 позицій у наявності</div>
-      <div>Візуалізація — безкоштовний бонус</div>
+      <div>Доступний накладений платіж</div>
       <div>Швидка відправка по Україні</div>
-      <div>Оплата частинами</div>
+      <div>Оплата частинами без комісії банку</div>
     </div>
     <button class="btn btn-primary" data-open-modal data-cta="hero">Залишити заявку</button>
   </div>
