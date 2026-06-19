@@ -221,7 +221,16 @@ header .wrap{display:flex; align-items:center; justify-content:space-between; ga
 .hero .eyebrow{color:var(--yellow);}
 .hero .eyebrow::before{background:var(--yellow);}
 .hero h1{color:var(--paper); font-size:clamp(30px, 4.4vw, 50px); font-weight:600; margin-bottom:22px;}
-.hero h1 .measure{position:relative; font-style:italic; color:var(--yellow); padding-bottom:7px; border-bottom:2px dashed var(--yellow);}
+.hero h1 .measure{
+  position:relative;
+  font-style:italic;
+  color:var(--yellow);
+  text-decoration-line:underline;
+  text-decoration-style:dashed;
+  text-decoration-color:var(--yellow);
+  text-decoration-thickness:2px;
+  text-underline-offset:7px;
+}
 .hero p.sub{color:rgba(240,230,207,.86); font-size:17px; line-height:1.55; margin-bottom:34px; max-width:560px;}
 .hero-benefits{display:flex; flex-wrap:wrap; gap:14px 26px; margin-bottom:38px;}
 .hero-benefits div{display:flex; align-items:center; gap:9px; font-size:14px; color:var(--cream); font-weight:500;}
