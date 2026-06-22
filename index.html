@@ -861,26 +861,46 @@ const PHOTOS = {
   "review-4":         "images/review-4.jpg",
   "review-5":         "images/review-5.jpg"
 };
+function loadOnePhoto(el){
+  const key = el.dataset.photo;
+  const url = PHOTOS[key];
+  if(!url) return; // нема фото — лишаємо плейсхолдер як є
+  const fit = (key.startsWith('viz-') || key.startsWith('review-')) ? 'contain' : 'cover';
+  const img = new Image();
+  img.onload = () => {
+    if(key === 'hero'){
+      el.style.background = `linear-gradient(180deg, rgba(16,13,10,.4) 0%, rgba(16,13,10,.58) 45%, rgba(16,13,10,.86) 100%), url("${url}") center/cover no-repeat`;
+    } else {
+      el.style.background = `url("${url}") center/${fit} no-repeat`;
+    }
+    el.classList.add('has-photo');
+  };
+  img.onerror = () => {
+    console.warn('[Decor House] Не вдалось завантажити фото для "' + key + '": ' + url);
+  };
+  img.src = url;
+}
 function applyPhotos(){
-  document.querySelectorAll('[data-photo]').forEach(el=>{
-    const key = el.dataset.photo;
-    const url = PHOTOS[key];
-    if(!url) return; // нема фото — лишаємо плейсхолдер як є
-    const fit = (key.startsWith('viz-') || key.startsWith('review-')) ? 'contain' : 'cover';
-    const img = new Image();
-    img.onload = () => {
-      if(key === 'hero'){
-        el.style.background = `linear-gradient(180deg, rgba(16,13,10,.4) 0%, rgba(16,13,10,.58) 45%, rgba(16,13,10,.86) 100%), url("${url}") center/cover no-repeat`;
-      } else {
-        el.style.background = `url("${url}") center/${fit} no-repeat`;
-      }
-      el.classList.add('has-photo');
-    };
-    img.onerror = () => {
-      console.warn('[Decor House] Не вдалось завантажити фото для "' + key + '": ' + url);
-    };
-    img.src = url;
-  });
+  // hero вантажиться відразу (він завжди на першому екрані).
+  // Решта фото — лише коли людина реально долистала до них:
+  // економить трафік на хостингу для тих, хто не доскролив сторінку.
+  const heroEl = document.querySelector('[data-photo="hero"]');
+  if(heroEl) loadOnePhoto(heroEl);
+
+  const lazyEls = document.querySelectorAll('[data-photo]:not([data-photo="hero"])');
+  if('IntersectionObserver' in window){
+    const lazyIo = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          loadOnePhoto(entry.target);
+          lazyIo.unobserve(entry.target);
+        }
+      });
+    }, {rootMargin:'400px 0px'}); // починаємо завантаження трохи заздалегідь, щоб фото встигло з'явитись до того, як людина доскролить
+    lazyEls.forEach(el=>lazyIo.observe(el));
+  } else {
+    lazyEls.forEach(loadOnePhoto);
+  }
 }
 applyPhotos();
 
@@ -1037,7 +1057,9 @@ function getUtm(){
   return {
     utm_source: p.get('utm_source') || '',
     utm_medium: p.get('utm_medium') || '',
-    utm_campaign: p.get('utm_campaign') || ''
+    utm_campaign: p.get('utm_campaign') || '',
+    utm_content: p.get('utm_content') || '',
+    utm_term: p.get('utm_term') || ''
   };
 }
 function saveBackup(payload){
@@ -1057,6 +1079,7 @@ function formatTelegramMessage(payload){
     `Звідки: ${payload.cta_source} (${payload.form_type})`,
   ];
   if(payload.utm_source) lines.push(`UTM: ${payload.utm_source} / ${payload.utm_medium} / ${payload.utm_campaign}`);
+  if(payload.utm_content || payload.utm_term) lines.push(`Адсет/Крео: ${payload.utm_content || '—'} / ${payload.utm_term || '—'}`);
   lines.push(`Час: ${new Date(payload.timestamp).toLocaleString('uk-UA')}`);
   return lines.join('\n');
 }
