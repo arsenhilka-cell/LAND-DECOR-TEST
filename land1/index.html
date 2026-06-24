@@ -57,6 +57,17 @@ DECOR HOUSE — ЛЕНДІНГ "LAND1" (оплата частинами), чор
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 
+<!-- Pixel ID можна підмінити прямо з URL посилання оголошення, без
+     правок коду і без деплою — просто додайте до лінку в рекламі:
+     ?fbpx=ІНШИЙ_FB_PIXEL_ID&ttpx=ІНШИЙ_TT_PIXEL_ID
+     Якщо цих параметрів у посиланні немає — використовуються дефолтні
+     ID нижче (тобто всі старі посилання й далі працюють як раніше). -->
+<script>
+  var __pxParams = new URLSearchParams(window.location.search);
+  var __fbPixelId = __pxParams.get('fbpx') || '1448858230344730';
+  var __ttPixelId = __pxParams.get('ttpx') || 'D8R84JJC77U2T659N0SG';
+</script>
+
 <!-- Meta (Facebook) Pixel — базовий код -->
 <script>
 !function(f,b,e,v,n,t,s)
@@ -67,7 +78,7 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1448858230344730');
+fbq('init', __fbPixelId);
 fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none"
@@ -96,7 +107,7 @@ src="https://www.facebook.com/tr?id=1448858230344730&ev=PageView&noscript=1"
   o.src=i+"?sdkid="+e+"&lib="+t;
   var a=document.getElementsByTagName("script")[0];
   a.parentNode.insertBefore(o,a)};
-  ttq.load('D8R84JJC77U2T659N0SG');
+  ttq.load(__ttPixelId);
   ttq.page();
 }(window, document, 'ttq');
 </script>
@@ -1166,7 +1177,8 @@ function getUtm(){
     utm_medium: p.get('utm_medium') || '',
     utm_campaign: p.get('utm_campaign') || '',
     utm_content: p.get('utm_content') || '',
-    utm_term: p.get('utm_term') || ''
+    utm_term: p.get('utm_term') || '',
+    op: p.get('op') || ''
   };
 }
 function saveBackup(payload){
@@ -1185,6 +1197,7 @@ function formatTelegramMessage(payload){
     `Телефон: ${payload.phone}`,
     `Звідки: ${payload.cta_source} (${payload.form_type})`,
   ];
+  if(payload.op) lines.push(`Байер: ${payload.op}`);
   if(payload.utm_source) lines.push(`UTM: ${payload.utm_source} / ${payload.utm_medium} / ${payload.utm_campaign}`);
   if(payload.utm_content || payload.utm_term) lines.push(`Адсет/Крео: ${payload.utm_content || '—'} / ${payload.utm_term || '—'}`);
   lines.push(`Час: ${new Date(payload.timestamp).toLocaleString('uk-UA')}`);
