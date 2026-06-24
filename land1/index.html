@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<!--
+====================================================================
+DECOR HOUSE — ЛЕНДІНГ "LAND1" (оплата частинами), чорно-жовто-золотий
+====================================================================
+ЦЕ ОКРЕМИЙ ЛЕНДІНГ — призначений для розміщення в підпапці "land1"
+поруч з основним сайтом (decorhouse24.com.ua/land1). Цей файл і його
+папка "images" повністю незалежні від головного сайту.
+
+Що зробити перед публікацією, Арсене:
+
+1) ФОТО — створіть у підпапці "land1" (поруч із цим файлом, тобто
+   land1/images) папку "images" і завантажте туди фото з назвами
+   hero.jpg, gallery-1.jpg ... — повний список назв у <script>
+   внизу файлу, об'єкт PHOTOS. Фото підхопляться самі.
+   Галерея (gallery-1...gallery-4) — квадратні фото, готуйте їх
+   2000×2000px (мінімум 1800×1800), стиснуті до ~300-500КБ кожне.
+   Логотипи банків (bank1.png, bank2.png, bank3.png) — пропорції
+   не важливі, кожен впишеться у своїх власних пропорціях без
+   обрізки. Орієнтовний розмір: ПриватБанк/Monobank (bank1/bank2,
+   квадратні) — близько 400×400px; А-Банк (bank3, прямокутний) —
+   близько 600×260px. Бажано PNG із прозорим фоном, без зайвих
+   білих полів навколо самого лого.
+
+2) ЗАЯВКИ → TELEGRAM — бот вже підключений і перевірений
+   (CONFIG.telegram внизу файлу). Якщо захочете підключити іншого
+   бота — там само замініть botToken і chatIds. Щоб додати ще
+   одного отримувача заявок — допишіть його chat_id у масив chatIds.
+
+3) КОНТАКТИ — реальні дані вже вписані в CONFIG.contacts внизу
+   файлу. Захочете змінити телефон/інстаграм/адресу — правте там,
+   підʼєднано до шапки, футера і вікна форми автоматично.
+
+4) ВІДГУКИ — тексти й імена/міста вже вписані. Лишилось додати
+   фото/відео в кожну картку.
+
+5) ЦИФРИ — у блоці "Про компанію" вже стоять реальні цифри (6 років,
+   4700+ клієнтів, 1000+ позицій) — усі три рахуються "з нуля"
+   анімацією при скролі. Зміните число в HTML (data-count-to) —
+   анімація підхопить нове значення сама.
+====================================================================
+-->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Decor House — стіл та стільці в оплату частинами без комісії банку</title>
+<meta name="description" content="Стіл та стільці для кухні в оплату частинами на 3 місяці без комісії банку — ПриватБанк, Monobank, А-Банк. Понад 1000 позицій в наявності, доставка по всій Україні.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+<!-- Meta (Facebook) Pixel — базовий код -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1448858230344730');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1448858230344730&ev=PageView&noscript=1"
+/></noscript>
+
+<style>
+/* ============================== TOKENS ============================== */
+:root{
+  --black:#100d0a;
+  --black-soft:#1c1812;
+  --charcoal:#2a241c;
+  --paper:#faf6ea;
+  --cream:#f0e6cf;
+  --cream-dim:#e3d4ab;
+  --gold:#c9994c;
+  --gold-deep:#9c7530;
+  --gold-light:#e3bd7c;
+  --yellow:#f2c12e;
+  --yellow-deep:#d9a911;
+  --yellow-ink:#1c1407;
+  --error:#a23b3b;
+  --shadow:0 26px 54px -26px rgba(0,0,0,.55);
+  --radius:3px;
+  --radius-lg:6px;
+  --maxw:1180px;
+  --ease:cubic-bezier(.16,.84,.44,1);
+  --ease-snap:cubic-bezier(.2,.8,.2,1);
+  --font-display:'Fraunces', serif;
+  --font-body:'Work Sans', sans-serif;
+  --font-mono:'IBM Plex Mono', monospace;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important;}
+}
+body{
+  margin:0;
+  font-family:var(--font-body);
+  color:var(--black);
+  background:var(--cream);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+h1,h2,h3{font-family:var(--font-display);margin:0;line-height:1.05;font-weight:600;}
+p{margin:0;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+
+/* section-scoped color context — set --fg/--fg-soft/--eyebrow once per section */
+.section-dark{background:var(--black); color:var(--cream); --fg:var(--cream); --fg-soft:rgba(245,239,224,.72); --eyebrow:var(--yellow); --hairline:rgba(245,239,224,.14);}
+.section-light{background:var(--cream); color:var(--black); --fg:var(--black); --fg-soft:rgba(16,13,10,.68); --eyebrow:var(--gold-deep); --hairline:rgba(16,13,10,.12);}
+
+.eyebrow{
+  font-family:var(--font-mono);
+  font-size:12px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--eyebrow);
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:14px;
+}
+.eyebrow::before{content:'';width:18px;height:1px;background:var(--eyebrow);display:inline-block;}
+section{position:relative;padding:96px 0;}
+@media (max-width:768px){ section{padding:64px 0;} }
+
+/* placeholder photo blocks */
+.ph{
+  position:relative;
+  background:
+    repeating-linear-gradient(135deg, rgba(156,113,72,.16) 0 12px, rgba(156,113,72,.06) 12px 24px),
+    var(--cream-dim);
+  border:1px dashed var(--gold);
+  border-radius:var(--radius);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:var(--gold-deep);
+  font-family:var(--font-mono);
+  font-size:12px;
+  letter-spacing:.04em;
+  line-height:1.5;
+  padding:14px;
+  min-height:140px;
+}
+.ph span{max-width:80%;}
+.ph.dark{background:repeating-linear-gradient(135deg, rgba(245,239,224,.06) 0 12px, rgba(245,239,224,.02) 12px 24px), var(--black-soft); border-color:rgba(245,239,224,.3); color:var(--gold-light);}
+.ph.has-photo{border:none;}
+.ph.has-photo span, .hero-bg.has-photo .ph-label{display:none;}
+
+/* buttons */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:16px 30px;
+  font-family:var(--font-body);
+  font-weight:600;
+  font-size:15px;
+  letter-spacing:.01em;
+  border-radius:var(--radius);
+  transition:transform .25s var(--ease-snap), box-shadow .25s var(--ease-snap), background-color .22s ease, color .2s ease, border-color .2s ease;
+  white-space:nowrap;
+}
+.btn-primary{background:var(--yellow); color:var(--yellow-ink); border:2px solid var(--black); box-shadow:0 14px 28px -16px rgba(0,0,0,.5);}
+.btn-primary:hover{background:var(--yellow-deep); transform:translateY(-2px); box-shadow:0 18px 34px -16px rgba(0,0,0,.55);}
+.btn-primary:active{transform:translateY(0);}
+.btn-outline-dark{background:transparent; color:var(--cream); border:1.5px solid rgba(245,239,224,.45);}
+.btn-outline-dark:hover{border-color:var(--yellow); color:var(--yellow); background:rgba(245,239,224,.06); transform:translateY(-2px);}
+.btn-outline-light{background:transparent; color:var(--black); border:1.5px solid rgba(16,13,10,.5);}
+.btn-outline-light:hover{background:var(--black); color:var(--cream); border-color:var(--black); transform:translateY(-2px);}
+.btn-invert{background:var(--black); color:var(--cream); border:2px solid var(--black);}
+.btn-invert:hover{background:var(--black-soft); transform:translateY(-2px);}
+.btn-block{width:100%;}
+.btn:focus-visible{outline:3px solid var(--gold); outline-offset:2px;}
+
+.cta-row{margin-top:40px; display:flex; gap:16px; flex-wrap:wrap;}
+
+/* ============================== HEADER ============================== */
+header{
+  position:fixed; top:0; left:0; right:0; z-index:60;
+  background:rgba(16,13,10,0);
+  transition:background .3s ease, box-shadow .3s ease, padding .3s ease;
+  padding:22px 0;
+}
+header.scrolled{
+  background:rgba(16,13,10,.92);
+  backdrop-filter:blur(8px);
+  box-shadow:0 1px 0 rgba(201,153,76,.25), 0 16px 30px -22px rgba(0,0,0,.5);
+  padding:14px 0;
+}
+header .wrap{display:flex; align-items:center; justify-content:space-between; gap:18px;}
+.logo{
+  font-family:var(--font-body);
+  font-weight:600;
+  font-size:13px;
+  line-height:1.4;
+  color:rgba(240,230,207,.92);
+  letter-spacing:.005em;
+  max-width:250px;
+}
+.logo .accent{color:var(--yellow); font-weight:700;}
+@media (max-width:560px){ .logo{font-size:11.5px; max-width:160px;} }
+.head-contact{
+  display:flex; align-items:center; gap:22px;
+  font-family:var(--font-mono); font-size:13px;
+  color:rgba(240,230,207,.85);
+}
+.head-phone{font-weight:600; letter-spacing:.02em; color:var(--cream);}
+@media (max-width:680px){ .head-phone-label{display:none;} }
+.head-cta{display:none;}
+@media (min-width:560px){ .head-cta{display:inline-flex; padding:11px 20px; font-size:13px;} }
+
+/* ============================== HERO ============================== */
+.hero{min-height:100vh; display:flex; align-items:flex-end; position:relative; padding:160px 24px 88px; background:var(--black); overflow:hidden;}
+.hero-bg{
+  position:absolute; inset:-40px -10px -40px -10px;
+  background:
+    repeating-linear-gradient(135deg, rgba(245,239,224,.05) 0 14px, rgba(245,239,224,.015) 14px 28px),
+    radial-gradient(ellipse at 30% 20%, var(--charcoal) 0%, var(--black) 70%);
+  will-change:transform;
+}
+.hero-bg .ph-label{
+  position:absolute; bottom:24px; right:24px;
+  font-family:var(--font-mono); font-size:11px; color:rgba(245,239,224,.5);
+  border:1px dashed rgba(245,239,224,.35); padding:8px 12px; border-radius:var(--radius);
+  max-width:240px; text-align:right; line-height:1.5;
+}
+.hero-bg.has-photo .ph-label{display:none;}
+.hero-inner{position:relative; z-index:2; max-width:640px;}
+.hero-inner > *{opacity:0; transform:translateY(14px); transition:opacity .65s var(--ease), transform .65s var(--ease);}
+.hero-inner.visible > *{opacity:1; transform:none;}
+.hero-inner.visible .eyebrow{transition-delay:.05s;}
+.hero-inner.visible h1{transition-delay:.16s;}
+.hero-inner.visible p.sub{transition-delay:.3s;}
+.hero-inner.visible .hero-benefits{transition-delay:.42s;}
+.hero-inner.visible .btn{transition-delay:.52s;}
+.hero .eyebrow{color:var(--yellow);}
+.hero .eyebrow::before{background:var(--yellow);}
+.hero h1{color:var(--paper); font-size:clamp(30px, 4.4vw, 50px); font-weight:600; margin-bottom:22px;}
+.hero h1 .measure{
+  position:relative;
+  color:var(--yellow);
+  text-decoration-line:underline;
+  text-decoration-style:dashed;
+  text-decoration-color:var(--yellow);
+  text-decoration-thickness:2px;
+  text-underline-offset:7px;
+}
+.hero p.sub{color:rgba(240,230,207,.86); font-size:17px; line-height:1.55; margin-bottom:34px; max-width:560px;}
+.hero-benefits{display:flex; flex-wrap:wrap; gap:14px 26px; margin-bottom:38px;}
+.hero-benefits div{display:flex; align-items:center; gap:9px; font-size:14px; color:var(--cream); font-weight:500;}
+.hero-benefits div::before{content:''; width:7px; height:7px; background:var(--yellow); border-radius:50%; flex:none;}
+@media (max-width:680px){
+  .hero{padding:140px 20px 100px;}
+}
+
+/* ============================== GENERIC SECTION HEAD ============================== */
+.section-head{max-width:640px; margin-bottom:48px;}
+.section-head h2{font-size:clamp(26px,3.4vw,38px); margin-bottom:16px; color:var(--fg);}
+.section-head p{font-size:16px; color:var(--fg-soft); line-height:1.6;}
+
+/* ============================== GALLERY (stacked squares) ============================== */
+.gallery-stack{display:flex; flex-direction:column; gap:28px; max-width:880px; margin:0 auto; opacity:1; transform:none;}
+.gallery-square{aspect-ratio:1/1; width:100%; border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); background-size:cover; background-position:center;
+  opacity:0; transform:translateY(18px); transition:opacity .6s var(--ease), transform .6s var(--ease);}
+.gallery-stack.visible .gallery-square{opacity:1; transform:none;}
+.gallery-stack.visible .gallery-square:nth-child(1){transition-delay:.03s;}
+.gallery-stack.visible .gallery-square:nth-child(2){transition-delay:.12s;}
+.gallery-stack.visible .gallery-square:nth-child(3){transition-delay:.21s;}
+.gallery-stack.visible .gallery-square:nth-child(4){transition-delay:.3s;}
+@media (max-width:600px){ .gallery-stack{gap:18px;} }
+
+/* ============================== VISUALIZATION ============================== */
+.viz-section{background:var(--paper); border-top:1px solid var(--hairline); border-bottom:1px solid var(--hairline);}
+.viz-flow{display:flex; align-items:center; gap:0; margin:50px 0 8px;}
+.viz-step{flex:1; text-align:center;}
+.viz-step .ph{aspect-ratio:4/5; height:auto; margin-bottom:14px;}
+.viz-step p{font-family:var(--font-mono); font-size:12px; color:var(--fg-soft); letter-spacing:.03em;}
+.viz-arrow{flex:none; width:64px; display:flex; align-items:center; justify-content:center; color:var(--gold); padding-bottom:42px;}
+.viz-arrow svg{width:40px; height:18px;}
+@media (max-width:768px){
+  .viz-flow{flex-direction:column; align-items:stretch;}
+  .viz-arrow{transform:rotate(90deg); padding:8px 0;}
+}
+.viz-text{max-width:560px; margin-top:46px; font-size:16px; line-height:1.7; color:var(--fg-soft);}
+.viz-text strong{color:var(--gold-deep);}
+.pay-banks{display:flex; gap:24px; margin:50px 0 8px; flex-wrap:wrap;}
+.bank-card{flex:1; min-width:200px; background:var(--paper); border:1px solid var(--hairline); border-radius:var(--radius-lg); padding:34px 24px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:14px; box-shadow:var(--shadow); transition:transform .3s var(--ease-snap);}
+.bank-card:hover{transform:translateY(-4px);}
+.bank-logo-slot{
+  width:100%; max-width:170px; height:64px; margin:0 auto;
+  background-position:center; background-repeat:no-repeat; background-size:contain;
+  display:flex; align-items:center; justify-content:center;
+}
+.bank-logo-slot:not(.has-photo){
+  border:1px dashed var(--gold); border-radius:var(--radius);
+  background-image:repeating-linear-gradient(135deg, rgba(156,113,72,.16) 0 10px, rgba(156,113,72,.06) 10px 20px);
+  background-color:var(--cream-dim);
+}
+.bank-logo-slot:not(.has-photo) span{font-family:var(--font-mono); font-size:9px; line-height:1.4; color:var(--gold-deep); text-align:center; padding:6px;}
+.bank-logo-slot.has-photo span{display:none;}
+.bank-name{font-family:var(--font-display); font-size:20px; font-weight:600; color:var(--black);}
+.bank-badge{font-family:var(--font-mono); font-size:11px; letter-spacing:.04em; text-transform:uppercase; color:var(--yellow-deep); background:rgba(242,193,46,.15); padding:6px 12px; border-radius:20px;}
+@media (max-width:768px){ .pay-banks{flex-direction:column;} }
+
+/* ============================== TRUST (dark) ============================== */
+.trust-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--hairline); border:1px solid var(--hairline); margin-top:8px; opacity:1; transform:none;}
+.trust-item{background:var(--black); padding:30px 26px; display:flex; flex-direction:column; gap:14px; opacity:0; transform:translateY(16px); transition:opacity .55s var(--ease), transform .55s var(--ease);}
+.trust-grid.visible .trust-item{opacity:1; transform:none;}
+.trust-grid.visible .trust-item:nth-child(1){transition-delay:.02s;}
+.trust-grid.visible .trust-item:nth-child(2){transition-delay:.08s;}
+.trust-grid.visible .trust-item:nth-child(3){transition-delay:.14s;}
+.trust-grid.visible .trust-item:nth-child(4){transition-delay:.2s;}
+.trust-grid.visible .trust-item:nth-child(5){transition-delay:.26s;}
+.trust-grid.visible .trust-item:nth-child(6){transition-delay:.32s;}
+.trust-grid.visible .trust-item:nth-child(7){transition-delay:.38s;}
+.trust-grid.visible .trust-item:nth-child(8){transition-delay:.44s;}
+.trust-item .num{font-family:var(--font-mono); font-size:12px; color:var(--yellow); letter-spacing:.08em;}
+.trust-item p{font-size:15px; line-height:1.5; color:rgba(240,230,207,.88);}
+@media (max-width:880px){ .trust-grid{grid-template-columns:repeat(2,1fr);} }
+@media (max-width:520px){ .trust-grid{grid-template-columns:1fr;} }
+.steps-list{margin-top:8px; border-top:1px solid var(--hairline); opacity:1; transform:none;}
+.step-row{
+  display:grid; grid-template-columns:64px 1fr; gap:24px;
+  padding:30px 0; border-bottom:1px solid var(--hairline);
+  align-items:start;
+  opacity:0; transform:translateY(16px); transition:opacity .55s var(--ease), transform .55s var(--ease);
+}
+.steps-list.visible .step-row{opacity:1; transform:none;}
+.steps-list.visible .step-row:nth-child(1){transition-delay:.02s;}
+.steps-list.visible .step-row:nth-child(2){transition-delay:.07s;}
+.steps-list.visible .step-row:nth-child(3){transition-delay:.12s;}
+.steps-list.visible .step-row:nth-child(4){transition-delay:.17s;}
+.steps-list.visible .step-row:nth-child(5){transition-delay:.22s;}
+.steps-list.visible .step-row:nth-child(6){transition-delay:.27s;}
+.steps-list.visible .step-row:nth-child(7){transition-delay:.32s;}
+.steps-list.visible .step-row:nth-child(8){transition-delay:.37s;}
+.step-row .mark{font-family:var(--font-mono); font-size:13px; color:var(--yellow); padding-top:4px;}
+.step-row h3{font-size:19px; font-weight:600; margin-bottom:8px; font-family:var(--font-body); color:var(--cream);}
+.step-row p{color:var(--fg-soft); line-height:1.6; font-size:15px;}
+.step-sublist{margin:10px 0 0; padding-left:20px; color:var(--fg-soft); font-size:15px; line-height:1.6;}
+.step-sublist li{margin-bottom:6px;}
+@media (max-width:600px){ .step-row{grid-template-columns:40px 1fr;} }
+
+/* ============================== WHY US (light) ============================== */
+.why-list{margin-top:8px; border-top:1px solid var(--hairline); opacity:1; transform:none;}
+.why-row{
+  display:grid; grid-template-columns:64px 1fr; gap:24px;
+  padding:30px 0; border-bottom:1px solid var(--hairline);
+  align-items:start;
+  opacity:0; transform:translateY(16px); transition:opacity .55s var(--ease), transform .55s var(--ease);
+}
+.why-list.visible .why-row{opacity:1; transform:none;}
+.why-list.visible .why-row:nth-child(1){transition-delay:.02s;}
+.why-list.visible .why-row:nth-child(2){transition-delay:.08s;}
+.why-list.visible .why-row:nth-child(3){transition-delay:.14s;}
+.why-list.visible .why-row:nth-child(4){transition-delay:.2s;}
+.why-list.visible .why-row:nth-child(5){transition-delay:.26s;}
+.why-list.visible .why-row:nth-child(6){transition-delay:.32s;}
+.why-list.visible .why-row:nth-child(7){transition-delay:.38s;}
+.why-row .mark{font-family:var(--font-mono); font-size:13px; color:var(--gold-deep); padding-top:4px;}
+.why-row h3{font-size:19px; font-weight:600; margin-bottom:8px; font-family:var(--font-body); color:var(--black);}
+.why-row p{color:var(--fg-soft); line-height:1.6; font-size:15px;}
+@media (max-width:600px){ .why-row{grid-template-columns:40px 1fr;} }
+
+/* ============================== REVIEWS (light, dimmer) ============================== */
+.reviews{background:var(--cream-dim);}
+.review-track-wrap{position:relative; margin-top:46px;}
+.review-track{display:flex; align-items:flex-start; gap:20px; overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:8px; scrollbar-width:none;}
+.review-track::-webkit-scrollbar{display:none;}
+.review-card{
+  flex:none; width:320px; scroll-snap-align:start;
+  background:var(--paper); border:1px solid var(--hairline); border-radius:var(--radius-lg);
+  padding:26px; display:flex; flex-direction:column; gap:16px;
+  transition:transform .3s var(--ease-snap), box-shadow .3s var(--ease-snap);
+}
+.review-card:hover{transform:translateY(-4px); box-shadow:var(--shadow);}
+.review-card .ph{aspect-ratio:4/5; height:auto;}
+.review-card .quote{font-size:14px; line-height:1.6; color:rgba(16,13,10,.78); font-style:italic;}
+.review-card .who{display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:12px; color:var(--gold-deep); border-top:1px solid var(--hairline); padding-top:12px;}
+.review-nav{display:flex; gap:10px; margin-top:22px;}
+.review-nav button{width:42px; height:42px; border:1px solid var(--black); border-radius:50%; display:flex; align-items:center; justify-content:center; transition:background .2s, color .2s, transform .2s;}
+.review-nav button:hover{background:var(--black); color:var(--paper); transform:translateY(-2px);}
+
+/* ============================== PROCESS (tape measure, dark) ============================== */
+.process{background:var(--black-soft);}
+.tape{position:relative; margin-top:64px; padding-top:8px; opacity:1;}
+.tape-line{position:absolute; top:21px; left:0; right:0; height:2px; background-image:repeating-linear-gradient(90deg, var(--gold) 0 10px, transparent 10px 18px);}
+.tape-steps{display:grid; grid-template-columns:repeat(4,1fr); gap:32px; position:relative;}
+.tape-step{display:flex; flex-direction:column; gap:16px; opacity:0; transform:translateY(16px); transition:opacity .55s var(--ease), transform .55s var(--ease);}
+.tape.visible .tape-step{opacity:1; transform:none;}
+.tape.visible .tape-step:nth-child(1){transition-delay:.04s;}
+.tape.visible .tape-step:nth-child(2){transition-delay:.16s;}
+.tape.visible .tape-step:nth-child(3){transition-delay:.28s;}
+.tape.visible .tape-step:nth-child(4){transition-delay:.4s;}
+.tape-node{
+  width:44px; height:44px; border-radius:50%;
+  background:var(--black); border:2px solid var(--gold);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-mono); font-weight:600; font-size:14px; color:var(--yellow);
+  position:relative; z-index:2;
+}
+.tape-step h3{font-size:17px; font-weight:600; font-family:var(--font-body); color:var(--cream);}
+.tape-step p{font-size:14px; color:rgba(240,230,207,.72); line-height:1.55;}
+@media (max-width:880px){
+  .tape-line{display:none;}
+  .tape-steps{grid-template-columns:1fr; gap:0;}
+  .tape-step{display:grid; grid-template-columns:44px 1fr; gap:18px; padding:18px 0; border-bottom:1px solid rgba(245,239,224,.12);}
+  .tape-step h3, .tape-step p{grid-column:2;}
+}
+
+/* ============================== ABOUT (dark) ============================== */
+.about{background:var(--black);}
+.about .wrap{display:block;}
+.about-content{max-width:760px;}
+.about h2{color:var(--paper); font-size:clamp(26px,3.4vw,38px); margin-bottom:20px;}
+.about p.lead{font-size:16px; line-height:1.7; color:rgba(240,230,207,.82); margin-bottom:30px;}
+.about-stats{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:36px; max-width:620px;}
+.about-stats div{border-top:1px solid rgba(245,239,224,.16); padding-top:16px;}
+.about-stats .big{font-family:var(--font-display); font-size:34px; color:var(--yellow); display:block;}
+.about-stats .lbl{font-size:13px; color:rgba(240,230,207,.62); margin-top:6px; display:block;}
+@media (max-width:600px){ .about-stats{grid-template-columns:1fr; max-width:320px;} }
+
+/* ============================== FINAL FORM (yellow climax) ============================== */
+.final{background:var(--yellow); color:var(--yellow-ink); text-align:center;}
+.final h2{color:var(--yellow-ink); font-size:clamp(28px,4vw,42px); margin-bottom:18px;}
+.final p{max-width:520px; margin:0 auto 36px; color:rgba(28,20,7,.82); font-size:16px; line-height:1.6;}
+.inline-form{display:flex; gap:12px; max-width:560px; margin:0 auto; flex-wrap:wrap; justify-content:center;}
+.inline-form input{
+  flex:1; min-width:160px;
+  padding:16px 18px; border-radius:var(--radius); border:1.5px solid rgba(28,20,7,.4);
+  background:rgba(28,20,7,.07); color:var(--yellow-ink); font-family:var(--font-body); font-size:15px;
+}
+.inline-form input::placeholder{color:rgba(28,20,7,.55);}
+.inline-form input:focus-visible{outline:3px solid var(--black);}
+.final-note{margin-top:18px; font-size:12px; color:rgba(28,20,7,.6);}
+
+/* ============================== FOOTER ============================== */
+footer{background:var(--black); color:var(--cream); padding:64px 0 32px;}
+.foot-grid{display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:48px; padding-bottom:40px; border-bottom:1px solid rgba(245,239,224,.14);}
+.foot-logo{font-family:var(--font-display); font-size:22px; margin-bottom:14px; color:var(--paper);}
+footer p{font-size:14px; line-height:1.7; color:rgba(240,230,207,.7);}
+footer h4{font-family:var(--font-mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--gold); margin-bottom:16px;}
+footer a{transition:color .2s;}
+.foot-links a{display:block; font-size:14px; padding:6px 0; color:rgba(240,230,207,.85);}
+.foot-links a:hover, footer p a:hover{color:var(--yellow);}
+.foot-bottom{display:flex; justify-content:space-between; gap:16px; padding-top:24px; font-size:12px; color:rgba(240,230,207,.5); flex-wrap:wrap;}
+@media (max-width:768px){ .foot-grid{grid-template-columns:1fr; gap:32px;} }
+
+/* ============================== STICKY MOBILE CTA ============================== */
+.sticky-cta{
+  position:fixed; bottom:0; left:0; right:0; z-index:55;
+  background:var(--paper); border-top:1px solid var(--hairline);
+  padding:12px 16px; box-shadow:0 -14px 30px -18px rgba(0,0,0,.3);
+  display:none;
+}
+@media (max-width:680px){ .sticky-cta{display:block;} body{padding-bottom:74px;} }
+
+/* ============================== MODAL ============================== */
+.modal-overlay{position:fixed; inset:0; background:rgba(16,13,10,.78); display:none; align-items:center; justify-content:center; padding:20px; z-index:100;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--paper); border-radius:var(--radius-lg); max-width:440px; width:100%; padding:38px 32px; position:relative; box-shadow:var(--shadow); transform:translateY(8px) scale(.98); opacity:0; transition:transform .3s var(--ease-snap), opacity .3s var(--ease-snap);}
+.modal-overlay.open .modal{transform:none; opacity:1;}
+.modal-close{position:absolute; top:18px; right:18px; width:34px; height:34px; display:flex; align-items:center; justify-content:center; border-radius:50%; color:rgba(16,13,10,.6); transition:background .2s, transform .2s;}
+.modal-close:hover{background:var(--cream); transform:rotate(90deg);}
+.modal h3{font-size:24px; margin-bottom:8px;}
+.modal p.sub{color:rgba(16,13,10,.65); font-size:14px; margin-bottom:26px; line-height:1.55;}
+.field{margin-bottom:16px;}
+.field label{display:block; font-family:var(--font-mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:rgba(16,13,10,.6); margin-bottom:8px;}
+.field input{width:100%; padding:14px 16px; border:1px solid rgba(16,13,10,.18); border-radius:var(--radius); font-family:var(--font-body); font-size:15px; background:var(--cream); transition:border-color .2s;}
+.field input:focus-visible{outline:3px solid var(--gold); outline-offset:1px; border-color:var(--gold);}
+.field .err{color:var(--error); font-size:12px; margin-top:6px; display:none;}
+.field.invalid input{border-color:var(--error);}
+.field.invalid .err{display:block;}
+.consent{font-size:12px; color:rgba(16,13,10,.6); margin:14px 0 22px; line-height:1.5;}
+.modal-state{display:none;}
+.modal-state.active{display:block;}
+.modal-success{text-align:center;}
+.modal-success .icon{width:56px; height:56px; border-radius:50%; background:var(--cream); display:flex; align-items:center; justify-content:center; margin:0 auto 18px; color:var(--gold-deep);}
+#modalErrorState .icon{color:var(--error);}
+.modal-success h3{margin-bottom:10px;}
+.modal-success p{color:rgba(16,13,10,.65); font-size:14px; line-height:1.6;}
+.btn-spinner{display:none; width:16px; height:16px; border:2px solid rgba(28,20,7,.35); border-top-color:var(--yellow-ink); border-radius:50%; animation:spin .7s linear infinite;}
+.is-loading .btn-spinner{display:inline-block;}
+.is-loading .btn-label{opacity:.7;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* reveal-on-scroll (generic) */
+.reveal{opacity:0; transform:translateY(18px); transition:opacity .65s var(--ease), transform .65s var(--ease);}
+.reveal.visible{opacity:1; transform:none;}
+</style>
+</head>
+<body>
+
+<!-- ============================== HEADER ============================== -->
+<header id="siteHeader">
+  <div class="wrap">
+    <a class="logo" href="#top">Збережіть свій бюджет, а стіл та стільці придбайте у <span class="accent">оплату частинами</span></a>
+    <div class="head-contact">
+      <span><span class="head-phone-label">Телефон: </span><span class="head-phone" data-contact="phone">+38 (068) 130-75-55</span></span>
+    </div>
+    <button class="btn btn-primary head-cta" data-open-modal data-cta="header">Залишити заявку</button>
+  </div>
+</header>
+
+<!-- ============================== HERO ============================== -->
+<section class="hero" id="top">
+  <div class="hero-bg" data-photo="hero">
+    <div class="ph-label">ФОТО: найкращий реалізований інтер'єр клієнта зі столом та стільцями Decor House (повноекранне, портрет/альбом 1920×1080+)</div>
+  </div>
+  <div class="wrap hero-inner" id="heroInner">
+    <h1>Найбільший шоурум<br>
+      <span class="measure">столів і стільців в Україні</span>
+    </h1>
+    <p class="sub">Понад 1000 моделей у наявності. Оформіть замовлення в оплату частинами на 3 місяці без комісії банку — від ПриватБанк, Monobank та А-Банк.</p>
+    <div class="hero-benefits">
+      <div>Понад 1000 позицій у наявності</div>
+      <div>Доступний накладений платіж</div>
+      <div>Швидка відправка по Україні</div>
+      <div>Оплата частинами без комісії банку</div>
+    </div>
+    <button class="btn btn-primary" data-open-modal data-cta="hero">Залишити заявку</button>
+  </div>
+</section>
+
+<!-- ============================== BLOCK 2: ГАЛЕРЕЯ (слайдер) ============================== -->
+<section id="gallery" class="section-light">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Реальні роботи</div>
+      <h2>Наші столи та стільці в оселях наших клієнтів</h2>
+      <p>Різні стилі інтер'єрів, фото після покупки та кадри з відгуків клієнтів з усієї України.</p>
+    </div>
+    <div class="gallery-stack reveal">
+      <div class="ph gallery-square" data-photo="gallery-1"><span>ФОТО: інтер'єр клієнта №1 (квадрат, 2000×2000)</span></div>
+      <div class="ph gallery-square" data-photo="gallery-2"><span>ФОТО: інтер'єр клієнта №2 (квадрат, 2000×2000)</span></div>
+      <div class="ph gallery-square" data-photo="gallery-3"><span>ФОТО: інтер'єр клієнта №3 (квадрат, 2000×2000)</span></div>
+      <div class="ph gallery-square" data-photo="gallery-4"><span>ФОТО: інтер'єр клієнта №4 (квадрат, 2000×2000)</span></div>
+    </div>
+    <div class="cta-row reveal">
+      <button class="btn btn-outline-light" data-open-modal data-cta="gallery">Залишити заявку</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== BLOCK 3: ВІЗУАЛІЗАЦІЯ ============================== -->
+<section class="viz-section section-light" id="installment">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Без переплат</div>
+      <h2>Купуйте зараз — платіть частинами</h2>
+    </div>
+    <div class="viz-text reveal">Оформіть замовлення в розстрочку без зайвих документів — просто обираєте свій банк при оформленні заявки. <strong>3 місяці без комісії банку</strong> від ПриватБанк, Monobank та А-Банк.</div>
+    <div class="pay-banks reveal">
+      <div class="bank-card">
+        <div class="bank-logo-slot" data-photo="bank1"><span>ЛОГОТИП ПриватБанк (квадрат, напр. 400×400)</span></div>
+        <div class="bank-name">ПриватБанк</div>
+        <div class="bank-badge">3 місяці без комісії</div>
+      </div>
+      <div class="bank-card">
+        <div class="bank-logo-slot" data-photo="bank2"><span>ЛОГОТИП Monobank (квадрат, напр. 400×400)</span></div>
+        <div class="bank-name">Monobank</div>
+        <div class="bank-badge">3 місяці без комісії</div>
+      </div>
+      <div class="bank-card">
+        <div class="bank-logo-slot" data-photo="bank3"><span>ЛОГОТИП А-Банк (прямокутник, напр. 600×260)</span></div>
+        <div class="bank-name">А-Банк</div>
+        <div class="bank-badge">3 місяці без комісії</div>
+      </div>
+    </div>
+    <div class="cta-row reveal">
+      <button class="btn btn-primary" data-open-modal data-cta="installment">Залишити заявку</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== BLOCK 4: ДОВІРА ============================== -->
+<section class="trust section-dark" id="trust">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Без зайвих хвилювань</div>
+      <h2>Як проходить замовлення?</h2>
+    </div>
+    <div class="steps-list reveal">
+      <div class="step-row">
+        <div class="mark">1</div>
+        <div><h3>Залишаєте заявку</h3><p>Залиште заявку на сайті і наш менеджер зв'яжеться з вами найближчим часом.</p></div>
+      </div>
+      <div class="step-row">
+        <div class="mark">2</div>
+        <div><h3>Консультація та підбір</h3><p>Розкажіть нам про свої побажання, а ми підберемо найкращі варіанти столу та стільців саме для вас. Якщо ви вже визначилися з моделлю, одразу надамо всю необхідну інформацію по ній.</p></div>
+      </div>
+      <div class="step-row">
+        <div class="mark">3</div>
+        <div><h3>Візуалізація у вашому інтер'єрі</h3><p>Залишилися сумніви щодо вибору? Надішліть фото своєї кухні, і ми безкоштовно покажемо, як обраний стіл та стільці виглядатимуть у вашому інтер'єрі.</p></div>
+      </div>
+      <div class="step-row">
+        <div class="mark">4</div>
+        <div><h3>Оформлення замовлення</h3><p>Коли ви визначилися з вибором, ми узгоджуємо всі деталі та оформлюємо ваше замовлення.</p></div>
+      </div>
+      <div class="step-row">
+        <div class="mark">5</div>
+        <div>
+          <h3>Оплата</h3>
+          <p>Обираєте зручний для себе спосіб оплати:</p>
+          <ul class="step-sublist">
+            <li>накладений платіж з мінімальною передоплатою;</li>
+            <li>оплата на рахунок ФОП;</li>
+            <li>оплата частинами від ПриватБанк, Monobank та А-Банк на 3 місяці без переплати або на більшу кількість місяців з комісією від 1,9% на місяць.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="mark">6</div>
+        <div><h3>Дані для відправлення</h3><p>Надсилаєте дані для отримання замовлення, а ми готуємо його до відправки.</p></div>
+      </div>
+      <div class="step-row">
+        <div class="mark">7</div>
+        <div><h3>Відправка та доставка</h3><p>Ми компактно та надійно пакуємо ваше замовлення, обов'язково страхуємо його та передаємо на доставку Новою поштою.</p></div>
+      </div>
+      <div class="step-row">
+        <div class="mark">8</div>
+        <div><h3>Отримання та збірка</h3><p>Після отримання кухонного комплекту ми надсилаємо вам детальну відеоінструкцію зі збірки та завжди залишаємося на зв'язку. Вам залишається лише встановити новий комплект у своїй кухні та насолоджуватися комфортом, затишком і приємними моментами за новим столом.</p></div>
+      </div>
+    </div>
+    <div class="cta-row reveal">
+      <button class="btn btn-outline-dark" data-open-modal data-cta="trust">Залишити заявку</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== BLOCK 5: ЧОМУ ОБИРАЮТЬ ============================== -->
+<section id="why" class="section-light">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Decor House</div>
+      <h2>Чому тисячі клієнтів обирають саме нас</h2>
+    </div>
+    <div class="why-list reveal">
+      <div class="why-row">
+        <div class="mark">1</div>
+        <div><h3>Понад 1000 позицій у наявності</h3><p>Вам не потрібно чекати виготовлення чи поставки кілька місяців.</p></div>
+      </div>
+      <div class="why-row">
+        <div class="mark">2</div>
+        <div><h3>Швидка відправка по всій Україні</h3><p>Замовлення відправляються швидко.</p></div>
+      </div>
+      <div class="why-row">
+        <div class="mark">3</div>
+        <div><h3>Оплата частинами</h3><p>Оплата частинами на 3 місяці без комісії банку.</p></div>
+      </div>
+      <div class="why-row">
+        <div class="mark">4</div>
+        <div><h3>Допомога з підбором</h3><p>Підбираємо стіл та стільці під ваш інтер'єр, розміри та бюджет.</p></div>
+      </div>
+      <div class="why-row">
+        <div class="mark">5</div>
+        <div><h3>Детальна відеоінструкція</h3><p>Показуємо весь процес складання покроково.</p></div>
+      </div>
+      <div class="why-row">
+        <div class="mark">6</div>
+        <div><h3>Відповідальність за доставку</h3><p>Усі посилки страхуються. У разі пошкодження допомагаємо вирішити ситуацію та супроводжуємо клієнта до її повного вирішення.</p></div>
+      </div>
+      <div class="why-row">
+        <div class="mark">7</div>
+        <div><h3>Гарантія на продукцію та підтримка після покупки</h3><p>Ми залишаємось на зв'язку навіть після того, як комплект уже стоїть на вашій кухні.</p></div>
+      </div>
+    </div>
+    <div class="cta-row reveal">
+      <button class="btn btn-primary" data-open-modal data-cta="why">Залишити заявку</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== BLOCK 6: ВІДГУКИ ============================== -->
+<section class="reviews section-light" id="reviews">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Соціальний доказ</div>
+      <h2>Що говорять наші клієнти</h2>
+      <p>Відеовідгуки, фото відгуки, скріншоти переписок та комплекти у квартирах клієнтів.</p>
+    </div>
+    <div class="review-track-wrap reveal">
+      <div class="review-track" id="reviewTrack">
+        <div class="review-card">
+          <div class="ph" data-photo="review-1"><span>ВІДЕО/ФОТО відгук клієнта №1</span></div>
+          <p class="quote">«Чесно кажучи, найбільше переживали саме за збірку 😅 Здавалося, що це буде довго, складно і доведеться шукати майстра. Але разом із замовленням нам надіслали детальну відеоінструкцію, де все показано настільки зрозуміло, що чоловік самостійно зібрав комплект без жодних труднощів.<br><br>Це був один із тих приємних моментів, коли реальність перевершила очікування 🤍 Дякую команді Decor House не лише за красиві меблі, а й за турботу про клієнтів на кожному етапі. Саме з таких деталей складається справжній сервіс»</p>
+          <div class="who"><span>Олена</span><span>Одеса</span></div>
+        </div>
+        <div class="review-card">
+          <div class="ph" data-photo="review-2"><span>ВІДЕО/ФОТО відгук клієнта №2</span></div>
+          <p class="quote">«Довго шукали стіл, який буде красивим, практичним і підійде під наш інтер'єр. Дякую команді Decor House за терпіння та професійну допомогу. Нам запропонували кілька варіантів, все детально пояснили і допомогли зробити правильний вибір.<br><br>Тепер розумію, що інколи хороший сервіс цінніший за саму покупку»</p>
+          <div class="who"><span>Марина</span><span>Одеса</span></div>
+        </div>
+        <div class="review-card">
+          <div class="ph" data-photo="review-3"><span>Скріншот переписки з клієнтом</span></div>
+          <p class="quote">«Дуже рідко залишаю відгуки, але тут справді захотілося подякувати ❤️ Від першого повідомлення до отримання замовлення все було легко, зрозуміло і без зайвого хвилювання. Комплект приїхав саме таким, як я собі уявляла.<br><br>Відчувається, що тут працюють люди, які люблять свою справу і щиро піклуються про клієнтів 🏡✨»</p>
+          <div class="who"><span>Катерина</span><span>Київ</span></div>
+        </div>
+        <div class="review-card">
+          <div class="ph" data-photo="review-4"><span>ФОТО комплекту в квартирі клієнта</span></div>
+          <p class="quote">«Отримали свій комплект і я досі не можу натішитися. Найбільше хвилювалася, чи буде він виглядати так само красиво, як на фото. Але в реальності він виявився навіть кращим. Кухня одразу стала набагато затишнішою, а кожен гість звертає увагу на наш новий стіл та стільці.<br><br>Щиро дякую за допомогу з вибором»</p>
+          <div class="who"><span>Юлія</span><span>Вінниця</span></div>
+        </div>
+        <div class="review-card">
+          <div class="ph" data-photo="review-5"><span>ВІДЕО відгук клієнта №3</span></div>
+          <p class="quote">«Сьогодні забрали свій комплект з пошти і я просто в захваті. Дуже дякую вам за допомогу з вибором. Мене довго мучили сумніви: круглий чи овальний стіл обрати. Але завдяки вашій консультації та можливості оплати частинами все вийшло просто ідеально — і для бюджету, і для душі.<br><br>У реальності комплект виглядає навіть краще, ніж я собі уявляла. Окремо хочу подякувати за сервіс і підхід до клієнта. Такої уваги до деталей і бажання дійсно допомогти я ще ніде не зустрічала. Щиро рекомендую»</p>
+          <div class="who"><span>Анастасія</span><span>Львів</span></div>
+        </div>
+      </div>
+      <div class="review-nav">
+        <button id="revPrev" aria-label="Попередній відгук"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M10 2 4 8l6 6" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
+        <button id="revNext" aria-label="Наступний відгук"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M6 2l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
+      </div>
+    </div>
+    <div class="cta-row reveal">
+      <button class="btn btn-outline-light" data-open-modal data-cta="reviews">Залишити заявку</button>
+    </div>
+  </div>
+</section>
+
+<!-- BLOCK 7 (старий короткий "Процес") видалено — детальний процес замовлення тепер у блоці "Як проходить замовлення?" вище -->
+
+<!-- ============================== BLOCK 8: ПРО КОМПАНІЮ ============================== -->
+<section class="about section-dark" id="about">
+  <div class="wrap">
+    <div class="reveal about-content">
+      <div class="eyebrow">Decor House</div>
+      <h2>Меблі для кухні, які обирають по всій Україні</h2>
+      <p class="lead">Decor House — це команда, що допомагає підібрати стіл та стільці, які підійдуть саме вашій кухні: за стилем, розміром і бюджетом. Працюємо по всій Україні, маємо власний шоурум в Одесі та понад 1000 позицій у наявності.</p>
+      <div class="about-stats">
+        <div><span class="big" data-count-to="6" data-count-suffix="">0</span><span class="lbl">років на ринку</span></div>
+        <div><span class="big" data-count-to="4700">0+</span><span class="lbl">задоволених клієнтів</span></div>
+        <div><span class="big" data-count-to="1000">0+</span><span class="lbl">позицій у наявності</span></div>
+      </div>
+      <div class="cta-row">
+        <button class="btn btn-outline-dark" data-open-modal data-cta="about">Залишити заявку</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== BLOCK 9: ФІНАЛЬНА ФОРМА ============================== -->
+<section class="final" id="final">
+  <div class="wrap">
+    <h2 class="reveal">Замовте стіл та стільці в оплату частинами вже сьогодні</h2>
+    <p class="reveal">Залиште заявку — оформимо замовлення з оплатою частинами на 3 місяці без комісії банку.</p>
+    <form class="inline-form reveal" id="finalForm" novalidate>
+      <input type="text" name="name" placeholder="Ваше ім'я" required aria-label="Ім'я">
+      <input type="tel" name="phone" placeholder="+380 __ ___ __ __" required aria-label="Телефон">
+      <button type="submit" class="btn btn-invert">
+        <span class="btn-label">Залишити заявку</span>
+        <span class="btn-spinner"></span>
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- ============================== FOOTER ============================== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logo">Decor House</div>
+        <p>Меблі для кухні: столи та стільці в оплату частинами на 3 місяці без комісії банку.</p>
+      </div>
+      <div>
+        <h4>Контакти</h4>
+        <p>
+          Телефон: <a data-contact="phone-link" href="tel:"><span data-contact="phone">+38 (068) 130-75-55</span></a><br>
+          Instagram: <a data-contact="instagram-link" href="https://instagram.com/">@<span data-contact="instagram-handle">decor_house_odessa</span></a><br>
+          Viber: <a data-contact="viber-link" href="#">Написати у Viber</a><br>
+          Шоурум: <span data-contact="address">Одеса, вул. Миколи Боровського, 37Т</span>
+        </p>
+      </div>
+      <div class="foot-links">
+        <h4>Сторінки</h4>
+        <a href="#gallery">Наші роботи</a>
+        <a href="#reviews">Відгуки</a>
+        <a href="#about">Про компанію</a>
+        <a href="#final">Залишити заявку</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© Decor House. Всі права захищені.</span>
+      <span>Одеса, Україна</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================== STICKY MOBILE CTA ============================== -->
+<div class="sticky-cta">
+  <button class="btn btn-primary btn-block" data-open-modal data-cta="sticky-mobile">Залишити заявку</button>
+</div>
+
+<!-- ============================== MODAL ============================== -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" aria-label="Закрити">
+      <svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 2l12 12M14 2 2 14" stroke="currentColor" stroke-width="2"/></svg>
+    </button>
+
+    <div class="modal-state active" id="modalFormState">
+      <h3 id="modalTitle">Залишити заявку на підбірку</h3>
+      <p class="sub">Залиште ім'я та телефон — менеджер зв'яжеться з вами найближчим часом і допоможе підібрати стіл та стільці під вашу кухню.</p>
+      <form id="modalForm" novalidate>
+        <div class="field" id="nameField">
+          <label for="modalName">Ім'я</label>
+          <input type="text" id="modalName" name="name" autocomplete="given-name" required>
+          <div class="err">Вкажіть, будь ласка, ваше ім'я.</div>
+        </div>
+        <div class="field" id="phoneField">
+          <label for="modalPhone">Телефон</label>
+          <input type="tel" id="modalPhone" name="phone" autocomplete="tel" placeholder="+380 __ ___ __ __" required>
+          <div class="err">Перевірте номер телефону — має бути 9 цифр після +380.</div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">
+          <span class="btn-label">Залишити заявку</span>
+          <span class="btn-spinner"></span>
+        </button>
+      </form>
+    </div>
+
+    <div class="modal-state modal-success" id="modalSuccessState">
+      <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M4 12l6 6L20 6" fill="none" stroke="currentColor" stroke-width="2.5"/></svg></div>
+      <h3>Заявку успішно отримано!</h3>
+      <p>Дякуємо за звернення до Decor House! Вже найближчим часом наш менеджер зв'яжеться з вами та допоможе підібрати стіл і стільці саме під ваш інтер'єр.</p>
+    </div>
+
+    <div class="modal-state modal-success" id="modalErrorState">
+      <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M12 2 2 20h20L12 2z" fill="none" stroke="currentColor" stroke-width="2"/><line x1="12" y1="9" x2="12" y2="13" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="16" r="1" fill="currentColor"/></svg></div>
+      <h3>Заявку збережено</h3>
+      <p>Не вдалося надіслати заявку автоматично, але ми зберегли ваші дані. Будь ласка, зателефонуйте нам напряму: <strong data-contact="phone">+38 (068) 130-75-55</strong></p>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ====================================================================
+   НАЛАШТУВАННЯ — заповніть перед публікацією
+   ==================================================================== */
+const CONFIG = {
+  // ЗАЯВКИ → TELEGRAM (вже підключено й перевірено)
+  // chatIds — список отримувачів. Щоб додати ще одну людину (або групу) —
+  // просто додайте ще один chat_id через кому в масив нижче.
+  telegram: {
+    botToken: "8983027640:AAFJFZCqp-7nIqNdFBDmeeWCCWEYw3K9g_k",
+    chatIds: ["840657758", "-1004325788791"]
+  },
+
+  contacts: {
+    phone: "+38 (068) 130-75-55",
+    instagramHandle: "decor_house_odessa",
+    instagram: "https://instagram.com/decor_house_odessa",
+    viber: "viber://chat?number=%2B380681307555",
+    address: "Одеса, вул. Миколи Боровського, 37Т"
+  }
+};
+
+function renderContacts(){
+  const c = CONFIG.contacts;
+  document.querySelectorAll('[data-contact="phone"]').forEach(el=> el.textContent = c.phone);
+  document.querySelectorAll('[data-contact="phone-link"]').forEach(el=> el.href = 'tel:' + c.phone.replace(/[^\d+]/g,''));
+  document.querySelectorAll('[data-contact="instagram-handle"]').forEach(el=> el.textContent = c.instagramHandle);
+  document.querySelectorAll('[data-contact="instagram-link"]').forEach(el=> el.href = c.instagram);
+  document.querySelectorAll('[data-contact="viber-link"]').forEach(el=> el.href = c.viber);
+  document.querySelectorAll('[data-contact="address"]').forEach(el=> el.textContent = c.address);
+}
+renderContacts();
+
+/* ====================================================================
+   ФОТО — найшвидший спосіб поміняти фото на сайті
+   ====================================================================
+   1. Створіть у тому самому репозиторії на GitHub папку "images"
+      (поруч із цим html-файлом) і завантажте туди фото з НАЗВАМИ
+      РІВНО ЯК У СПИСКУ НИЖЧЕ (наприклад hero.jpg, gallery-1.jpg...).
+   2. Vercel сам підхопить нову версію — нічого більше робити не
+      потрібно, ані тут у коді, ані в HTML.
+   Фото в галереї (gallery-1...gallery-8) показуються цілком, без
+   обрізки — підлаштовуються під рамку слайдера автоматично.
+   ==================================================================== */
+const PHOTOS = {
+  "hero":            "images/hero.jpg",
+  "gallery-1":        "images/gallery-1.jpg",
+  "gallery-2":        "images/gallery-2.jpg",
+  "gallery-3":        "images/gallery-3.jpg",
+  "gallery-4":        "images/gallery-4.jpg",
+  "bank1":            "images/bank1.png",
+  "bank2":            "images/bank2.png",
+  "bank3":            "images/bank3.png",
+  "viz-1":            "images/viz-1.jpg",
+  "viz-2":            "images/viz-2.jpg",
+  "viz-3":            "images/viz-3.jpg",
+  "review-1":         "images/review-1.jpg",
+  "review-2":         "images/review-2.jpg",
+  "review-3":         "images/review-3.jpg",
+  "review-4":         "images/review-4.jpg",
+  "review-5":         "images/review-5.jpg"
+};
+function loadOnePhoto(el){
+  const key = el.dataset.photo;
+  const url = PHOTOS[key];
+  if(!url) return; // нема фото — лишаємо плейсхолдер як є
+  const fit = (key.startsWith('viz-') || key.startsWith('review-') || key.startsWith('bank')) ? 'contain' : 'cover';
+  const img = new Image();
+  img.onload = () => {
+    if(key === 'hero'){
+      el.style.background = `linear-gradient(180deg, rgba(16,13,10,.4) 0%, rgba(16,13,10,.58) 45%, rgba(16,13,10,.86) 100%), url("${url}") center/cover no-repeat`;
+    } else {
+      el.style.background = `url("${url}") center/${fit} no-repeat`;
+    }
+    el.classList.add('has-photo');
+  };
+  img.onerror = () => {
+    console.warn('[Decor House] Не вдалось завантажити фото для "' + key + '": ' + url);
+  };
+  img.src = url;
+}
+function applyPhotos(){
+  // hero вантажиться відразу (він завжди на першому екрані).
+  // Решта фото — лише коли людина реально долистала до них:
+  // економить трафік на хостингу для тих, хто не доскролив сторінку.
+  const heroEl = document.querySelector('[data-photo="hero"]');
+  if(heroEl) loadOnePhoto(heroEl);
+
+  const lazyEls = document.querySelectorAll('[data-photo]:not([data-photo="hero"])');
+  if('IntersectionObserver' in window){
+    const lazyIo = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          loadOnePhoto(entry.target);
+          lazyIo.unobserve(entry.target);
+        }
+      });
+    }, {rootMargin:'400px 0px'}); // починаємо завантаження трохи заздалегідь, щоб фото встигло з'явитись до того, як людина доскролить
+    lazyEls.forEach(el=>lazyIo.observe(el));
+  } else {
+    lazyEls.forEach(loadOnePhoto);
+  }
+}
+applyPhotos();
+
+const prefersReducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ====================================================================
+   HEADER SCROLL STATE
+   ==================================================================== */
+const header = document.getElementById('siteHeader');
+function onScroll(){
+  if(window.scrollY > 80){ header.classList.add('scrolled'); }
+  else{ header.classList.remove('scrolled'); }
+}
+window.addEventListener('scroll', onScroll, {passive:true});
+onScroll();
+
+/* ====================================================================
+   HERO INTRO: text fades up over the photo in stages
+   ==================================================================== */
+const heroInner = document.getElementById('heroInner');
+function playHeroIntro(){
+  heroInner.classList.add('visible');
+}
+if(prefersReducedMotion){
+  heroInner.classList.add('visible');
+} else {
+  requestAnimationFrame(()=> requestAnimationFrame(playHeroIntro));
+  setTimeout(playHeroIntro, 700); // safety net in case rAF/load timing is delayed
+}
+// subtle parallax on the hero photo
+const heroBg = document.querySelector('.hero-bg');
+if(heroBg && !prefersReducedMotion){
+  window.addEventListener('scroll', ()=>{
+    const y = Math.min(window.scrollY, 600);
+    heroBg.style.transform = `translateY(${y*0.12}px)`;
+  }, {passive:true});
+}
+
+/* ====================================================================
+   REVEAL ON SCROLL (generic)
+   ==================================================================== */
+const revealEls = document.querySelectorAll('.reveal, .trust-grid, .why-list, .tape');
+if('IntersectionObserver' in window){
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, {threshold:.12});
+  revealEls.forEach(el=>io.observe(el));
+} else {
+  revealEls.forEach(el=>el.classList.add('visible'));
+}
+
+/* ====================================================================
+   COUNT-UP STATS
+   ==================================================================== */
+function countUp(el, target, duration, suffix){
+  const start = performance.now();
+  function tick(now){
+    const p = Math.min((now-start)/duration, 1);
+    const eased = 1 - Math.pow(1-p, 3);
+    el.textContent = Math.round(eased*target).toLocaleString('uk-UA') + suffix;
+    if(p<1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+document.querySelectorAll('[data-count-to]').forEach(el=>{
+  const target = parseInt(el.dataset.countTo, 10);
+  const suffix = el.dataset.countSuffix !== undefined ? el.dataset.countSuffix : '+';
+  if(prefersReducedMotion){ el.textContent = target.toLocaleString('uk-UA') + suffix; return; }
+  if('IntersectionObserver' in window){
+    const cio = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ countUp(e.target, target, 1200, suffix); cio.unobserve(e.target); }
+      });
+    }, {threshold:.4});
+    cio.observe(el);
+  } else {
+    el.textContent = target.toLocaleString('uk-UA') + suffix;
+  }
+});
+
+/* ====================================================================
+   PHONE MASK  (+380 __ ___ __ __)
+   ==================================================================== */
+function formatPhone(raw){
+  let digits = raw.replace(/\D/g,'');
+  if(digits.startsWith('380')) digits = digits.slice(3);
+  else if(digits.startsWith('0')) digits = digits.slice(1);
+  digits = digits.slice(0,9);
+  let out = '+380';
+  if(digits.length>0) out += ' ' + digits.slice(0,2);
+  if(digits.length>2) out += ' ' + digits.slice(2,5);
+  if(digits.length>5) out += ' ' + digits.slice(5,7);
+  if(digits.length>7) out += ' ' + digits.slice(7,9);
+  return out;
+}
+function attachPhoneMask(input){
+  input.addEventListener('focus', ()=>{ if(!input.value) input.value = '+380 '; });
+  input.addEventListener('input', ()=>{ input.value = formatPhone(input.value); });
+}
+document.querySelectorAll('input[type="tel"]').forEach(attachPhoneMask);
+
+function isValidPhone(value){
+  const digits = value.replace(/\D/g,'');
+  return digits.length === 12 && digits.startsWith('380');
+}
+
+/* ====================================================================
+   MODAL
+   ==================================================================== */
+const overlay = document.getElementById('modalOverlay');
+const formState = document.getElementById('modalFormState');
+const successState = document.getElementById('modalSuccessState');
+const errorState = document.getElementById('modalErrorState');
+const modalForm = document.getElementById('modalForm');
+const modalName = document.getElementById('modalName');
+const modalPhone = document.getElementById('modalPhone');
+let lastFocused = null;
+let currentCtaSource = 'unknown';
+
+function showState(state){
+  [formState, successState, errorState].forEach(s=>s.classList.remove('active'));
+  state.classList.add('active');
+}
+function openModal(ctaSource){
+  currentCtaSource = ctaSource || 'unknown';
+  lastFocused = document.activeElement;
+  showState(formState);
+  modalForm.reset();
+  document.getElementById('nameField').classList.remove('invalid');
+  document.getElementById('phoneField').classList.remove('invalid');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(()=>modalName.focus(), 50);
+}
+function closeModal(){
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+  if(lastFocused) lastFocused.focus();
+}
+document.querySelectorAll('[data-open-modal]').forEach(btn=>{
+  btn.addEventListener('click', ()=>openModal(btn.dataset.cta));
+});
+document.getElementById('modalClose').addEventListener('click', closeModal);
+overlay.addEventListener('click', (e)=>{ if(e.target === overlay) closeModal(); });
+document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && overlay.classList.contains('open')) closeModal(); });
+
+/* ====================================================================
+   SUBMIT (Modal + Final inline form) → Telegram
+   ==================================================================== */
+function getUtm(){
+  const p = new URLSearchParams(window.location.search);
+  return {
+    utm_source: p.get('utm_source') || '',
+    utm_medium: p.get('utm_medium') || '',
+    utm_campaign: p.get('utm_campaign') || '',
+    utm_content: p.get('utm_content') || '',
+    utm_term: p.get('utm_term') || ''
+  };
+}
+function saveBackup(payload){
+  try{
+    const key = 'dh_leads_backup';
+    const list = JSON.parse(localStorage.getItem(key) || '[]');
+    list.push(payload);
+    localStorage.setItem(key, JSON.stringify(list));
+  }catch(e){ /* localStorage unavailable — ignore */ }
+}
+function formatTelegramMessage(payload){
+  const lines = [
+    '🪑 Нова заявка з лендінгу Decor House (land1 — оплата частинами)',
+    '',
+    `Ім'я: ${payload.name}`,
+    `Телефон: ${payload.phone}`,
+    `Звідки: ${payload.cta_source} (${payload.form_type})`,
+  ];
+  if(payload.utm_source) lines.push(`UTM: ${payload.utm_source} / ${payload.utm_medium} / ${payload.utm_campaign}`);
+  if(payload.utm_content || payload.utm_term) lines.push(`Адсет/Крео: ${payload.utm_content || '—'} / ${payload.utm_term || '—'}`);
+  lines.push(`Час: ${new Date(payload.timestamp).toLocaleString('uk-UA')}`);
+  return lines.join('\n');
+}
+async function sendToOneChat(botToken, chatId, text){
+  const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+  // Без parse_mode: звичайний текст ніколи не "зламається" через
+  // підкреслення/зірочки/скобки в імені клієнта, UTM-метках тощо —
+  // це найнадійніший варіант, щоб жодна заявка не загубилась.
+  const res = await fetch(url, {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ chat_id: chatId, text })
+  });
+  const data = await res.json();
+  if(!data.ok) throw new Error('Telegram відповів помилкою (chat ' + chatId + '): ' + (data.description || res.status));
+}
+async function sendToAllChats(botToken, chatIds, payload){
+  const text = formatTelegramMessage(payload);
+  const results = await Promise.allSettled(chatIds.map(id => sendToOneChat(botToken, id, text)));
+  const failedIds = chatIds.filter((id, i) => results[i].status === 'rejected');
+  failedIds.forEach((id, i) => {
+    const r = results[chatIds.indexOf(id)];
+    console.warn('[Decor House] Не вдалось надіслати на chat ' + id + ':', r.reason);
+  });
+  return { anyOk: results.some(r => r.status === 'fulfilled'), failedIds };
+}
+async function submitLead(payload, btn){
+  btn.classList.add('is-loading');
+  saveBackup(payload);
+
+  const {botToken, chatIds} = CONFIG.telegram;
+  if(!botToken || !chatIds || !chatIds.length){
+    console.warn('[Decor House] CONFIG.telegram не заповнено — заявка збережена лише локально:', payload);
+    btn.classList.remove('is-loading');
+    return {ok:false, reason:'no_telegram'};
+  }
+  // Надсилаємо всім отримувачам одразу. Якщо комусь не дійшло — тихо
+  // повторюємо ще раз саме для тих, кому не дійшло (через паузу).
+  // Заявка вважається успішною, якщо дійшла хоча б одному отримувачу —
+  // це страхує від втрати ліда, навіть якщо в одного з менеджерів
+  // тимчасово "відвалився" чат з ботом.
+  let {anyOk, failedIds} = await sendToAllChats(botToken, chatIds, payload);
+  if(!anyOk){
+    console.warn('[Decor House] Нікому не дійшло, повторюємо спробу...');
+    await new Promise(r => setTimeout(r, 900));
+    ({anyOk, failedIds} = await sendToAllChats(botToken, chatIds, payload));
+  } else if(failedIds.length){
+    setTimeout(() => { sendToAllChats(botToken, failedIds, payload); }, 900);
+  }
+  btn.classList.remove('is-loading');
+  if(!anyOk){
+    console.error('[Decor House] Заявка не дійшла жодному отримувачу після повтору.');
+    return {ok:false, reason:'network'};
+  }
+  return {ok:true};
+}
+function trackLead(payload){
+  // Подія Lead для Facebook Pixel — рахуємо лідом саме момент,
+  // коли заявка вважається успішною (дійшла в Telegram або хоча б
+  // збереглась локально), а не просто клік по кнопці.
+  if(typeof fbq === 'function'){
+    fbq('track', 'Lead', { content_name: payload.cta_source });
+  }
+}
+
+modalForm.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const nameVal = modalName.value.trim();
+  const phoneVal = modalPhone.value.trim();
+  let valid = true;
+  if(nameVal.length < 2){ document.getElementById('nameField').classList.add('invalid'); valid = false; }
+  else{ document.getElementById('nameField').classList.remove('invalid'); }
+  if(!isValidPhone(phoneVal)){ document.getElementById('phoneField').classList.add('invalid'); valid = false; }
+  else{ document.getElementById('phoneField').classList.remove('invalid'); }
+  if(!valid) return;
+
+  const submitBtn = modalForm.querySelector('button[type="submit"]');
+  const payload = {
+    name: nameVal, phone: phoneVal, cta_source: currentCtaSource,
+    form_type: 'модальна форма', page_url: window.location.href,
+    timestamp: new Date().toISOString(), ...getUtm()
+  };
+  const result = await submitLead(payload, submitBtn);
+  const success = result.ok || result.reason === 'no_telegram';
+  if(success) trackLead(payload);
+  showState(success ? successState : errorState);
+});
+
+const finalForm = document.getElementById('finalForm');
+finalForm.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const nameInput = finalForm.querySelector('input[name="name"]');
+  const phoneInput = finalForm.querySelector('input[name="phone"]');
+  if(nameInput.value.trim().length < 2 || !isValidPhone(phoneInput.value)){
+    openModal('final-form-invalid');
+    return;
+  }
+  const submitBtn = finalForm.querySelector('button[type="submit"]');
+  const payload = {
+    name: nameInput.value.trim(), phone: phoneInput.value.trim(), cta_source: 'final-inline-form',
+    form_type: 'фінальна форма на сторінці', page_url: window.location.href,
+    timestamp: new Date().toISOString(), ...getUtm()
+  };
+  const result = await submitLead(payload, submitBtn);
+  const success = result.ok || result.reason === 'no_telegram';
+  if(success) trackLead(payload);
+  openModal('final-inline-form');
+  showState(success ? successState : errorState);
+});
+
+/* ====================================================================
+   REVIEW CAROUSEL
+   ==================================================================== */
+const track = document.getElementById('reviewTrack');
+const cardWidth = 340;
+document.getElementById('revPrev').addEventListener('click', ()=> track.scrollBy({left:-cardWidth, behavior:'smooth'}));
+document.getElementById('revNext').addEventListener('click', ()=> track.scrollBy({left: cardWidth, behavior:'smooth'}));
+</script>
+</body>
+</html>
