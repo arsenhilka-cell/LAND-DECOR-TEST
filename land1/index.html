@@ -74,6 +74,33 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=1448858230344730&ev=PageView&noscript=1"
 /></noscript>
 
+<!-- TikTok Pixel — базовий код -->
+<script>
+!function (w, d, t) {
+  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];
+  ttq.methods=["page","track","identify","instances","debug","on","off","once",
+  "ready","alias","group","enableCookie","disableCookie"];
+  ttq.setAndDefer=function(t,e){t[e]=function(){
+  t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};
+  for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);
+  ttq.instance=function(t){for(
+  var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)
+  ttq.setAndDefer(e,ttq.methods[n]);return e};
+  ttq.load=function(e,n){
+  var i="https://analytics.tiktok.com/i18n/pixel/events.js";
+  ttq._i=ttq._i||{};ttq._i[e]=[];ttq._i[e]._u=i;
+  ttq._t=ttq._t||{};ttq._t[e]=+new Date;
+  ttq._o=ttq._o||{};ttq._o[e]=n||{};
+  var o=document.createElement("script");
+  o.type="text/javascript";o.async=!0;
+  o.src=i+"?sdkid="+e+"&lib="+t;
+  var a=document.getElementsByTagName("script")[0];
+  a.parentNode.insertBefore(o,a)};
+  ttq.load('D8R84JJC77U2T659N0SG');
+  ttq.page();
+}(window, document, 'ttq');
+</script>
+
 <style>
 /* ============================== TOKENS ============================== */
 :root{
@@ -790,7 +817,6 @@ footer a{transition:color .2s;}
 <section class="final" id="final">
   <div class="wrap">
     <h2 class="reveal">Замовте стіл та стільці вже сьогодні</h2>
-    <p class="reveal">Залиште заявку та оберіть свій стіл та стільці вже сьогодні.</p>
     <form class="inline-form reveal" id="finalForm" novalidate>
       <input type="text" name="name" placeholder="Ваше ім'я" required aria-label="Ім'я">
       <input type="tel" name="phone" placeholder="+380 __ ___ __ __" required aria-label="Телефон">
@@ -808,7 +834,7 @@ footer a{transition:color .2s;}
     <div class="foot-grid">
       <div>
         <div class="foot-logo">Decor House</div>
-        <p>Меблі для кухні: столи та стільці в оплату частинами на 3 місяці без комісії банку.</p>
+        <p>Надійний магазин, який обирають сотні українців щодня.</p>
       </div>
       <div>
         <h4>Контакти</h4>
@@ -1218,11 +1244,15 @@ async function submitLead(payload, btn){
   return {ok:true};
 }
 function trackLead(payload){
-  // Подія Lead для Facebook Pixel — рахуємо лідом саме момент,
-  // коли заявка вважається успішною (дійшла в Telegram або хоча б
-  // збереглась локально), а не просто клік по кнопці.
+  // Подія Lead для Facebook Pixel та TikTok Pixel — рахуємо лідом
+  // саме момент, коли заявка вважається успішною (дійшла в Telegram
+  // або хоча б збереглась локально), а не просто клік по кнопці.
   if(typeof fbq === 'function'){
     fbq('track', 'Lead', { content_name: payload.cta_source });
+  }
+  if(typeof ttq !== 'undefined' && ttq.track){
+    ttq.track('SubmitForm', { content_name: payload.cta_source });
+    ttq.track('Lead', { content_name: payload.cta_source });
   }
 }
 
