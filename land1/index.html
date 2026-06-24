@@ -13,10 +13,17 @@ DECOR HOUSE — ЛЕНДІНГ "LAND1" (оплата частинами), чор
 
 1) ФОТО — створіть у підпапці "land1" (поруч із цим файлом, тобто
    land1/images) папку "images" і завантажте туди фото з назвами
-   hero.jpg, gallery-1.jpg ... — повний список назв у <script>
+   hero.jpg, bank1.png ... — повний список назв у <script>
    внизу файлу, об'єкт PHOTOS. Фото підхопляться самі.
-   Галерея (gallery-1...gallery-4) — квадратні фото, готуйте їх
-   2000×2000px (мінімум 1800×1800), стиснуті до ~300-500КБ кожне.
+
+   Дві стрічки фото — "Топ продажів" (top1.jpg...top12.jpg) та
+   "Наші столи та стільці..." (gallery1.jpg...gallery12.jpg) —
+   по 12 фото кожна, листаються вбік. Ці фото НЕ в об'єкті PHOTOS,
+   просто завантажте файли з цими іменами в ту саму папку "images".
+   Пропорції фото можуть бути будь-якими (квадрат, горизонтальне,
+   вертикальне) — кожне показується максимально крупно у своєму
+   природному розмірі, без обрізки і без розтягування.
+
    Логотипи банків (bank1.png, bank2.png, bank3.png) — пропорції
    не важливі, кожен впишеться у своїх власних пропорціях без
    обрізки. Орієнтовний розмір: ПриватБанк/Monobank (bank1/bank2,
@@ -272,16 +279,31 @@ header .wrap{display:flex; align-items:center; justify-content:space-between; ga
 .section-head h2{font-size:clamp(26px,3.4vw,38px); margin-bottom:16px; color:var(--fg);}
 .section-head p{font-size:16px; color:var(--fg-soft); line-height:1.6;}
 
-/* ============================== GALLERY (stacked squares) ============================== */
-.gallery-stack{display:flex; flex-direction:column; gap:28px; max-width:880px; margin:0 auto; opacity:1; transform:none;}
-.gallery-square{aspect-ratio:1/1; width:100%; border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); background-size:cover; background-position:center;
-  opacity:0; transform:translateY(18px); transition:opacity .6s var(--ease), transform .6s var(--ease);}
-.gallery-stack.visible .gallery-square{opacity:1; transform:none;}
-.gallery-stack.visible .gallery-square:nth-child(1){transition-delay:.03s;}
-.gallery-stack.visible .gallery-square:nth-child(2){transition-delay:.12s;}
-.gallery-stack.visible .gallery-square:nth-child(3){transition-delay:.21s;}
-.gallery-stack.visible .gallery-square:nth-child(4){transition-delay:.3s;}
-@media (max-width:600px){ .gallery-stack{gap:18px;} }
+/* ============================== PHOTO STRIP (swipeable, natural photo sizes) ============================== */
+.strip-wrap{position:relative;}
+.photo-strip{display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x proximity; padding-bottom:10px; scrollbar-width:none;}
+.photo-strip::-webkit-scrollbar{display:none;}
+.strip-item{flex:none; height:min(58vh,560px); border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); scroll-snap-align:start; background:var(--paper);}
+.strip-item img{height:100%; width:auto; display:block;}
+.strip-ph{display:none; height:100%; width:320px; align-items:center; justify-content:center; text-align:center; padding:20px;
+  background:repeating-linear-gradient(135deg, rgba(156,113,72,.16) 0 12px, rgba(156,113,72,.06) 12px 24px), var(--cream-dim);
+  border:1px dashed var(--gold); border-radius:var(--radius-lg);
+  font-family:var(--font-mono); font-size:12px; color:var(--gold-deep); line-height:1.5;
+}
+.strip-nav{
+  position:absolute; top:50%; transform:translateY(-50%);
+  width:46px; height:46px; border-radius:50%;
+  background:rgba(16,13,10,.55); color:var(--paper);
+  display:flex; align-items:center; justify-content:center;
+  transition:background .2s, transform .2s; z-index:5;
+}
+.strip-nav:hover{background:rgba(16,13,10,.8); transform:translateY(-50%) scale(1.08);}
+.strip-nav.prev{left:-8px;}
+.strip-nav.next{right:-8px;}
+@media (max-width:768px){
+  .strip-item{height:min(46vh,420px);}
+  .strip-nav{display:none;}
+}
 
 /* ============================== VISUALIZATION ============================== */
 .viz-section{background:var(--paper); border-top:1px solid var(--hairline); border-bottom:1px solid var(--hairline);}
@@ -536,7 +558,39 @@ footer a{transition:color .2s;}
   </div>
 </section>
 
-<!-- ============================== BLOCK 2: ГАЛЕРЕЯ (слайдер) ============================== -->
+<!-- ============================== BLOCK 1.5: ТОП ПРОДАЖІВ ============================== -->
+<section id="top-sales" class="section-light">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Топ продажів</div>
+      <h2>Наші найкращі позиції</h2>
+      <p>Моделі, які клієнти обирають найчастіше.</p>
+    </div>
+    <div class="strip-wrap reveal">
+      <div class="photo-strip" id="topStrip">
+        <div class="strip-item"><img src="images/top1.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="strip-ph"><span>ФОТО: топ-позиція 1</span></div></div>
+        <div class="strip-item"><img src="images/top2.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="strip-ph"><span>ФОТО: топ-позиція 2</span></div></div>
+        <div class="strip-item"><img src="images/top3.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="strip-ph"><span>ФОТО: топ-позиція 3</span></div></div>
+        <div class="strip-item"><img src="images/top4.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="strip-ph"><span>ФОТО: топ-позиція 4</span></div></div>
+        <div class="strip-item"><img src="images/top5.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="strip-ph"><span>ФОТО: топ-позиція 5</span></div></div>
+        <div class="strip-item"><img src="images/top6.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="strip-ph"><span>ФОТО: топ-позиція 6</span></div></div>
+        <div class="strip-item"><img src="images/top7.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="strip-ph"><span>ФОТО: топ-позиція 7</span></div></div>
+        <div class="strip-item"><img src="images/top8.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="strip-ph"><span>ФОТО: топ-позиція 8</span></div></div>
+        <div class="strip-item"><img src="images/top9.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="strip-ph"><span>ФОТО: топ-позиція 9</span></div></div>
+        <div class="strip-item"><img src="images/top10.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="strip-ph"><span>ФОТО: топ-позиція 10</span></div></div>
+        <div class="strip-item"><img src="images/top11.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="strip-ph"><span>ФОТО: топ-позиція 11</span></div></div>
+        <div class="strip-item"><img src="images/top12.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="strip-ph"><span>ФОТО: топ-позиція 12</span></div></div>
+      </div>
+      <button class="strip-nav prev" data-strip="topStrip" aria-label="Попереднє фото"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M10 2 4 8l6 6" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
+      <button class="strip-nav next" data-strip="topStrip" aria-label="Наступне фото"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M6 2l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
+    </div>
+    <div class="cta-row reveal">
+      <button class="btn btn-primary" data-open-modal data-cta="top-sales">Залишити заявку</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== BLOCK 2: ГАЛЕРЕЯ (стрічка) ============================== -->
 <section id="gallery" class="section-light">
   <div class="wrap">
     <div class="section-head reveal">
@@ -544,11 +598,23 @@ footer a{transition:color .2s;}
       <h2>Наші столи та стільці в оселях наших клієнтів</h2>
       <p>Різні стилі інтер'єрів, фото після покупки та кадри з відгуків клієнтів з усієї України.</p>
     </div>
-    <div class="gallery-stack reveal">
-      <div class="ph gallery-square" data-photo="gallery-1"><span>ФОТО: інтер'єр клієнта №1 (квадрат, 2000×2000)</span></div>
-      <div class="ph gallery-square" data-photo="gallery-2"><span>ФОТО: інтер'єр клієнта №2 (квадрат, 2000×2000)</span></div>
-      <div class="ph gallery-square" data-photo="gallery-3"><span>ФОТО: інтер'єр клієнта №3 (квадрат, 2000×2000)</span></div>
-      <div class="ph gallery-square" data-photo="gallery-4"><span>ФОТО: інтер'єр клієнта №4 (квадрат, 2000×2000)</span></div>
+    <div class="strip-wrap reveal">
+      <div class="photo-strip" id="galleryStrip">
+        <div class="strip-item"><img src="images/gallery1.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="strip-ph"><span>ФОТО: інтер'єр клієнта 1</span></div></div>
+        <div class="strip-item"><img src="images/gallery2.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="strip-ph"><span>ФОТО: інтер'єр клієнта 2</span></div></div>
+        <div class="strip-item"><img src="images/gallery3.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="strip-ph"><span>ФОТО: інтер'єр клієнта 3</span></div></div>
+        <div class="strip-item"><img src="images/gallery4.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="strip-ph"><span>ФОТО: інтер'єр клієнта 4</span></div></div>
+        <div class="strip-item"><img src="images/gallery5.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="strip-ph"><span>ФОТО: інтер'єр клієнта 5</span></div></div>
+        <div class="strip-item"><img src="images/gallery6.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="strip-ph"><span>ФОТО: інтер'єр клієнта 6</span></div></div>
+        <div class="strip-item"><img src="images/gallery7.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="strip-ph"><span>ФОТО: інтер'єр клієнта 7</span></div></div>
+        <div class="strip-item"><img src="images/gallery8.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="strip-ph"><span>ФОТО: інтер'єр клієнта 8</span></div></div>
+        <div class="strip-item"><img src="images/gallery9.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="strip-ph"><span>ФОТО: інтер'єр клієнта 9</span></div></div>
+        <div class="strip-item"><img src="images/gallery10.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="strip-ph"><span>ФОТО: інтер'єр клієнта 10</span></div></div>
+        <div class="strip-item"><img src="images/gallery11.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="strip-ph"><span>ФОТО: інтер'єр клієнта 11</span></div></div>
+        <div class="strip-item"><img src="images/gallery12.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="strip-ph"><span>ФОТО: інтер'єр клієнта 12</span></div></div>
+      </div>
+      <button class="strip-nav prev" data-strip="galleryStrip" aria-label="Попереднє фото"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M10 2 4 8l6 6" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
+      <button class="strip-nav next" data-strip="galleryStrip" aria-label="Наступне фото"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M6 2l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
     </div>
     <div class="cta-row reveal">
       <button class="btn btn-outline-light" data-open-modal data-cta="gallery">Залишити заявку</button>
@@ -642,48 +708,7 @@ footer a{transition:color .2s;}
   </div>
 </section>
 
-<!-- ============================== BLOCK 5: ЧОМУ ОБИРАЮТЬ ============================== -->
-<section id="why" class="section-light">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div class="eyebrow">Decor House</div>
-      <h2>Чому тисячі клієнтів обирають саме нас</h2>
-    </div>
-    <div class="why-list reveal">
-      <div class="why-row">
-        <div class="mark">1</div>
-        <div><h3>Понад 1000 позицій у наявності</h3><p>Вам не потрібно чекати виготовлення чи поставки кілька місяців.</p></div>
-      </div>
-      <div class="why-row">
-        <div class="mark">2</div>
-        <div><h3>Швидка відправка по всій Україні</h3><p>Замовлення відправляються швидко.</p></div>
-      </div>
-      <div class="why-row">
-        <div class="mark">3</div>
-        <div><h3>Оплата частинами</h3><p>Оплата частинами на 3 місяці без комісії банку.</p></div>
-      </div>
-      <div class="why-row">
-        <div class="mark">4</div>
-        <div><h3>Допомога з підбором</h3><p>Підбираємо стіл та стільці під ваш інтер'єр, розміри та бюджет.</p></div>
-      </div>
-      <div class="why-row">
-        <div class="mark">5</div>
-        <div><h3>Детальна відеоінструкція</h3><p>Показуємо весь процес складання покроково.</p></div>
-      </div>
-      <div class="why-row">
-        <div class="mark">6</div>
-        <div><h3>Відповідальність за доставку</h3><p>Усі посилки страхуються. У разі пошкодження допомагаємо вирішити ситуацію та супроводжуємо клієнта до її повного вирішення.</p></div>
-      </div>
-      <div class="why-row">
-        <div class="mark">7</div>
-        <div><h3>Гарантія на продукцію та підтримка після покупки</h3><p>Ми залишаємось на зв'язку навіть після того, як комплект уже стоїть на вашій кухні.</p></div>
-      </div>
-    </div>
-    <div class="cta-row reveal">
-      <button class="btn btn-primary" data-open-modal data-cta="why">Залишити заявку</button>
-    </div>
-  </div>
-</section>
+<!-- BLOCK 5 (Чому обирають) видалено за запитом — після кроків замовлення йде блок відгуків -->
 
 <!-- ============================== BLOCK 6: ВІДГУКИ ============================== -->
 <section class="reviews section-light" id="reviews">
@@ -886,24 +911,23 @@ renderContacts();
    ====================================================================
    1. Створіть у тому самому репозиторії на GitHub папку "images"
       (поруч із цим html-файлом) і завантажте туди фото з НАЗВАМИ
-      РІВНО ЯК У СПИСКУ НИЖЧЕ (наприклад hero.jpg, gallery-1.jpg...).
-   2. Vercel сам підхопить нову версію — нічого більше робити не
+      РІВНО ЯК У СПИСКУ НИЖЧЕ (наприклад hero.jpg, bank1.png...).
+   2. Cloudflare сам підхопить нову версію — нічого більше робити не
       потрібно, ані тут у коді, ані в HTML.
-   Фото в галереї (gallery-1...gallery-8) показуються цілком, без
-   обрізки — підлаштовуються під рамку слайдера автоматично.
+
+   ОКРЕМО: стрічки "Топ продажів" та "Наші столи та стільці..." —
+   це 2×12 фото з НАЗВАМИ top1.jpg...top12.jpg та
+   gallery1.jpg...gallery12.jpg. Вони НЕ в списку PHOTOS нижче —
+   просто завантажте файли з цими іменами в ту саму папку "images",
+   і вони підхопляться самі. Фото можуть бути будь-яких пропорцій
+   (квадратні, горизонтальні, вертикальні) — кожне показується у
+   своєму природному розмірі, без обрізки.
    ==================================================================== */
 const PHOTOS = {
   "hero":            "images/hero.jpg",
-  "gallery-1":        "images/gallery-1.jpg",
-  "gallery-2":        "images/gallery-2.jpg",
-  "gallery-3":        "images/gallery-3.jpg",
-  "gallery-4":        "images/gallery-4.jpg",
   "bank1":            "images/bank1.png",
   "bank2":            "images/bank2.png",
   "bank3":            "images/bank3.png",
-  "viz-1":            "images/viz-1.jpg",
-  "viz-2":            "images/viz-2.jpg",
-  "viz-3":            "images/viz-3.jpg",
   "review-1":         "images/review-1.jpg",
   "review-2":         "images/review-2.jpg",
   "review-3":         "images/review-3.jpg",
@@ -991,7 +1015,7 @@ if(heroBg && !prefersReducedMotion){
 /* ====================================================================
    REVEAL ON SCROLL (generic)
    ==================================================================== */
-const revealEls = document.querySelectorAll('.reveal, .trust-grid, .why-list, .tape');
+const revealEls = document.querySelectorAll('.reveal, .steps-list');
 if('IntersectionObserver' in window){
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{
@@ -1246,6 +1270,18 @@ const track = document.getElementById('reviewTrack');
 const cardWidth = 340;
 document.getElementById('revPrev').addEventListener('click', ()=> track.scrollBy({left:-cardWidth, behavior:'smooth'}));
 document.getElementById('revNext').addEventListener('click', ()=> track.scrollBy({left: cardWidth, behavior:'smooth'}));
+
+/* ====================================================================
+   PHOTO STRIPS (top sales / gallery) — generic prev/next scroll
+   ==================================================================== */
+document.querySelectorAll('.strip-nav').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const strip = document.getElementById(btn.dataset.strip);
+    if(!strip) return;
+    const amount = strip.clientWidth * 0.85;
+    strip.scrollBy({left: btn.classList.contains('prev') ? -amount : amount, behavior:'smooth'});
+  });
+});
 </script>
 </body>
 </html>
