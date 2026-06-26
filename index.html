@@ -817,7 +817,7 @@ footer a{transition:color .2s;}
         <div class="field" id="phoneField">
           <label for="modalPhone">Телефон</label>
           <input type="tel" id="modalPhone" name="phone" autocomplete="tel" placeholder="+380 __ ___ __ __" required>
-          <div class="err">Перевірте номер телефону — має бути 9 цифр після +380.</div>
+          <div class="err">Перевірте номер телефону — введіть, будь ласка, коректний номер.</div>
         </div>
         <button type="submit" class="btn btn-primary btn-block">
           <span class="btn-label">Залишити заявку</span>
@@ -1022,29 +1022,16 @@ document.querySelectorAll('[data-count-to]').forEach(el=>{
 });
 
 /* ====================================================================
-   PHONE MASK  (+380 __ ___ __ __)
+   ТЕЛЕФОН — поле без примусового форматування. Плейсхолдер
+   "+380 __ ___ __ __" лише підказує формат, людина вписує цифри
+   у будь-якому вигляді, як їй зручно (з +380, з 0 на початку, або
+   просто 9-значний номер).
    ==================================================================== */
-function formatPhone(raw){
-  let digits = raw.replace(/\D/g,'');
-  if(digits.startsWith('380')) digits = digits.slice(3);
-  else if(digits.startsWith('0')) digits = digits.slice(1);
-  digits = digits.slice(0,9);
-  let out = '+380';
-  if(digits.length>0) out += ' ' + digits.slice(0,2);
-  if(digits.length>2) out += ' ' + digits.slice(2,5);
-  if(digits.length>5) out += ' ' + digits.slice(5,7);
-  if(digits.length>7) out += ' ' + digits.slice(7,9);
-  return out;
-}
-function attachPhoneMask(input){
-  input.addEventListener('focus', ()=>{ if(!input.value) input.value = '+380 '; });
-  input.addEventListener('input', ()=>{ input.value = formatPhone(input.value); });
-}
-document.querySelectorAll('input[type="tel"]').forEach(attachPhoneMask);
-
 function isValidPhone(value){
   const digits = value.replace(/\D/g,'');
-  return digits.length === 12 && digits.startsWith('380');
+  // приймаємо: 9 цифр (без префіксу), 10 цифр (0XXXXXXXXX),
+  // або 12 цифр (380XXXXXXXXX) — будь-який реалістичний варіант
+  return digits.length === 9 || digits.length === 10 || digits.length === 12;
 }
 
 /* ====================================================================
